@@ -114,6 +114,10 @@ float const indentTopAndBottomForCell = 5.0f;
     {
         [self performSegueWithIdentifier:@"ShowAllMessages" sender:self];
     }
+    else
+    {
+        [self performSegueWithIdentifier:@"ShowContact" sender:self];
+    }
 }
 
 -(void)deselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -128,10 +132,21 @@ float const indentTopAndBottomForCell = 5.0f;
 {
     if ([segue.identifier isEqualToString:@"ShowAllMessages"])
     {
-        if ([segue.destinationViewController isKindOfClass:[AllContactsVC class]])
+        if ([segue.destinationViewController isKindOfClass:[AllMassagesVC class]])
         {
-            //AllContactsVC *allContactsVC =
-           // (AllContactsVC *)segue.destinationViewController;
+            AllMassagesVC *allMessagesVC =
+            (AllMassagesVC *)segue.destinationViewController;
+            allMessagesVC.title = @"ALL";
+        }
+    }
+    
+    if ([segue.identifier isEqualToString:@"ShowContact"])
+    {
+        if ([segue.destinationViewController isKindOfClass:[ContactVC class]])
+        {
+            ContactVC *contactsVC =
+            (ContactVC *)segue.destinationViewController;
+            contactsVC.title = @"Виталя";            
         }
     }
 }

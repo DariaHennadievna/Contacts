@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageFromContactCell.h"
 #import "AllContactsVC.h"
+#import "ContactVC.h"
 
-@interface AllMassagesVC : UIViewController
+@interface AllMassagesVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

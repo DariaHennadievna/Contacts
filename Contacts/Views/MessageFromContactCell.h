@@ -10,4 +10,11 @@
 
 @interface MessageFromContactCell : UITableViewCell
 
+@property (nonatomic) UIView *avatarLabel;
+@property (nonatomic) UILabel *messageLabel;
+@property (nonatomic) UILabel *timeAgoLabel;
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+
 @end
