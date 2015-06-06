@@ -50,7 +50,7 @@
     [requestOperation start];
 }
 
-- (void)gettingContactsWithCallback:(void (^)(NSError *error, NSDictionary *result))callback
+- (void)gettingContactsWithCallback:(void (^)(NSError *error, NSArray *result))callback
 {
     [self callContactsWithCallback:callback];
 }

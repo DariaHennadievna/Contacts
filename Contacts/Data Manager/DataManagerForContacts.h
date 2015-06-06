@@ -10,6 +10,11 @@
 
 @interface DataManagerForContacts : NSObject
 
-@property (nonatomic) NSDictionary *data;
+@property (nonatomic) NSArray *data;
+
+- (instancetype)initWithData:(NSArray *)contactsData;
+
+- (void)countOfObjectsInData;
+- (NSDictionary *)gettingDataForOneContactsAtIndex:(NSInteger)index;
 
 @end

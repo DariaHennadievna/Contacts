@@ -10,12 +10,13 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
 
-typedef void (^ContactsAPICallback)(NSError* error, NSDictionary *result);
+//typedef void (^ContactsAPICallback)(NSError* error, NSDictionary *result);
+typedef void (^ContactsAPICallback)(NSError* error, NSArray *result);
 typedef void (^AvatarAPICallback)(NSError* error, NSData *result);
 
 @interface RequestManager : NSObject
 
-- (void)gettingContactsWithCallback:(void (^)(NSError *error, NSDictionary *result))callback;
+- (void)gettingContactsWithCallback:(void (^)(NSError *error, NSArray *result))callback;
 - (void)gettingAvatarWithCallback:(void (^)(NSError *error, NSData *result))callback;
 
 @end

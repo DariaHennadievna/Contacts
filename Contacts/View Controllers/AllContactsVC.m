@@ -16,6 +16,8 @@ float const indentTopAndBottomForCell = 5.0f;
 @property CGFloat heightForRowInFirstSection;
 @property CGFloat heightForRowInSecondSection;
 
+@property (nonatomic) DataManagerForContacts *dataManagerForContacts;
+
 
 @end
 
@@ -133,13 +135,15 @@ float const indentTopAndBottomForCell = 5.0f;
 - (void)startGetContacts
 {
     RequestManager *myRequestManager = [[RequestManager alloc] init];
-    [myRequestManager gettingContactsWithCallback:^(NSError *error, NSDictionary *result) {
+    [myRequestManager gettingContactsWithCallback:^(NSError *error, NSArray *result) {
         if (error)
         {
             return;
         }
-        
-        NSLog(@"Data = %@", result);
+        //NSLog(@"DATA %@", result);
+        DataManagerForContacts *dataManager = [[DataManagerForContacts alloc] initWithData:result];
+        self.dataManagerForContacts = dataManager;
+        [self dataProcessingForContactsData];
     }];
 }
 
@@ -158,6 +162,14 @@ float const indentTopAndBottomForCell = 5.0f;
 }
 */
 
+#pragma mark - Data Processing
+
+- (void)dataProcessingForContactsData
+{
+    [self.dataManagerForContacts countOfObjectsInData];
+    NSDictionary *contact = [self.dataManagerForContacts gettingDataForOneContactsAtIndex:1];
+    NSLog(@"contact = %@",contact);
+}
 
 #pragma mark - Navigation
 

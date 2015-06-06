@@ -10,7 +10,7 @@
 
 @implementation DataManagerForContacts
 
-- (instancetype)initWithData:(NSDictionary *)contactsData;
+- (instancetype)initWithData:(NSArray *)contactsData;
 {
     self = [super init];
     if (self)
@@ -19,6 +19,23 @@
     }
     
     return self;
+}
+
+- (NSDictionary *)gettingDataForOneContactsAtIndex:(NSInteger)index
+{
+    if (index > self.data.count-1)
+    {
+        return nil;
+    }
+    
+    NSDictionary *contact = [self.data objectAtIndex:index];
+    return contact;
+}
+
+- (void)countOfObjectsInData
+{
+    //NSLog(@"DATA = %@", self.data);
+    NSLog(@"count %lu", (unsigned long)self.data.count);
 }
 
 @end
