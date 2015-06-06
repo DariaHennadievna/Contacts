@@ -1,13 +1,13 @@
 //
-//  ContactCell.h
+//  DataManagerForImage.m
 //  Contacts
 //
 //  Created by Admin on 06.06.15.
 //  Copyright (c) 2015 Admin. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "DataManagerForImage.h"
 
-@interface ContactCell : UITableViewCell
+@implementation DataManagerForImage
 
 @end

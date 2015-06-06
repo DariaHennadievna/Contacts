@@ -31,6 +31,9 @@ float const indentTopAndBottomForCell = 5.0f;
     [self.tableView registerClass:[MessagesFromContactCell class]
            forCellReuseIdentifier:NSStringFromClass([MessagesFromContactCell class])];
     
+    [self startGetContacts];
+    //[self startGetAvatar];
+    
 }
 
 #pragma mark - Views
@@ -124,6 +127,36 @@ float const indentTopAndBottomForCell = 5.0f;
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+#pragma mark - Get Contacts
+
+- (void)startGetContacts
+{
+    RequestManager *myRequestManager = [[RequestManager alloc] init];
+    [myRequestManager gettingContactsWithCallback:^(NSError *error, NSDictionary *result) {
+        if (error)
+        {
+            return;
+        }
+        
+        NSLog(@"Data = %@", result);
+    }];
+}
+
+/*
+- (void)startGetAvatar
+{
+    RequestManager *myRequestManager = [[RequestManager alloc] init];
+    [myRequestManager gettingAvatarWithCallback:^(NSError *error, NSData *result) {
+        if (error)
+        {
+            return;
+        }
+        
+        NSLog(@"Data = %@", result);
+    }];
+}
+*/
 
 
 #pragma mark - Navigation

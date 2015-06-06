@@ -8,11 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class MessageFromContactCell;
+
+@protocol MessageFromContactCellDelegate <NSObject>
+
+- (void)didPressedAvatar:(MessageFromContactCell *)cell;
+
+@end
+
 @interface MessageFromContactCell : UITableViewCell
 
-@property (nonatomic) UIView *avatarLabel;
+@property (nonatomic) UIButton *avatarView;
 @property (nonatomic) UILabel *messageLabel;
 @property (nonatomic) UILabel *timeAgoLabel;
+
+@property (nonatomic, weak) id <MessageFromContactCellDelegate> delegate;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageCell.h"
 
-@interface ContactVC : UIViewController
+@interface ContactVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

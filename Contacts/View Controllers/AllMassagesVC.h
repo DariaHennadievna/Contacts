@@ -11,6 +11,8 @@
 #import "AllContactsVC.h"
 #import "ContactVC.h"
 
-@interface AllMassagesVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface AllMassagesVC : UIViewController <UITableViewDataSource,
+                                                UITableViewDelegate,
+                                                    MessageFromContactCellDelegate>
 
 @end

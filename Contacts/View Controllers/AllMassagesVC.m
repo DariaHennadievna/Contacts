@@ -23,10 +23,10 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    //self.title = @"ALL";
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[MessageFromContactCell class]
            forCellReuseIdentifier:NSStringFromClass([MessageFromContactCell class])];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Views
@@ -54,6 +54,8 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MessageFromContactCell *messageFromContactCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessageFromContactCell class]) forIndexPath:indexPath];
+    messageFromContactCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    messageFromContactCell.delegate = self;
     if (indexPath.row == 0)
     {
         messageFromContactCell.messageLabel.text = @"Enter large amount of text here";
@@ -65,7 +67,7 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
     
     [messageFromContactCell.messageLabel sizeToFit];
     
-    CGFloat heightForAvatar = CGRectGetHeight(messageFromContactCell.avatarLabel.bounds);
+    CGFloat heightForAvatar = CGRectGetHeight(messageFromContactCell.avatarView.bounds);
     CGFloat heightForTimeAgo = CGRectGetHeight(messageFromContactCell.timeAgoLabel.bounds);
     CGFloat heightForMessage = CGRectGetHeight(messageFromContactCell.messageLabel.bounds);
     
@@ -93,7 +95,6 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
     return 0.0f;
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.heightForRow;
@@ -101,7 +102,8 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSelector:@selector(deselectRowAtIndexPath:) withObject:indexPath afterDelay:0.1f];    
+    [self performSelector:@selector(deselectRowAtIndexPath:) withObject:indexPath afterDelay:0.1f];
+    NSLog(@"Click!!!");
 }
 
 -(void)deselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,6 +111,12 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark - Message Frome Contact Cell Deledate
+
+- (void)didPressedAvatar:(MessageFromContactCell *)cell
+{
+    NSLog(@"LOL Click!!!");
+}
 
 #pragma mark - Navigation
 
