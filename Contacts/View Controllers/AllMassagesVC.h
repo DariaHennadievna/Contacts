@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  AllMassagesVC.h
 //  Contacts
 //
 //  Created by Admin on 06.06.15.
@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AllContactsVC.h"
 
-@interface ViewController : UIViewController
-
+@interface AllMassagesVC : UIViewController
 
 @end
-
