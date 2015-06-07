@@ -120,7 +120,7 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 {
     [self performSelector:@selector(deselectRowAtIndexPath:) withObject:indexPath afterDelay:0.1f];
     NSLog(@"Click!!!");
-    [tableView reloadData];
+    //[tableView reloadData];
 }
 
 -(void)deselectRowAtIndexPath:(NSIndexPath *)indexPath

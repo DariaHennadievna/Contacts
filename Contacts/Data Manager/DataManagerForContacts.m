@@ -7,6 +7,10 @@
 //
 
 #import "DataManagerForContacts.h"
+#import "Contact+Creating.h"
+
+#define MESSAGES  @"messages"
+
 
 @implementation DataManagerForContacts
 
@@ -32,10 +36,45 @@
     return contact;
 }
 
-- (void)countOfObjectsInData
+- (NSDictionary *)gettingContactInfoForData:(NSDictionary *)dataContact
 {
-    //NSLog(@"DATA = %@", self.data);
-    NSLog(@"count %lu", (unsigned long)self.data.count);
+    NSMutableDictionary *contactInfo = [[NSMutableDictionary alloc] init];
+    
+    NSString *avatarURL =  [dataContact objectForKey:AVATAR_URL];
+     NSLog(@"avatarURL = %@", avatarURL);
+    [contactInfo setObject:avatarURL forKey:AVATAR_URL];
+    
+    NSNumber *userID = [dataContact objectForKey:USER_ID];
+     NSLog(@"userID = %@", userID);
+    [contactInfo setObject:userID forKey:USER_ID];
+    
+    NSString *username =  [dataContact objectForKey:USER_NAME];
+     NSLog(@"username = %@", username);
+    [contactInfo setObject:username forKey:USER_NAME];
+    
+    NSLog(@"dictionari of contact's data = %@", contactInfo);
+    return [contactInfo copy];
+}
+
+- (NSArray *)gettingMessageInfoForData:(NSDictionary *)dataContact
+{
+    NSArray *messagesData = [dataContact objectForKey:MESSAGES];
+    NSArray *messages = [[NSArray alloc] initWithArray:messagesData];
+    
+    NSLog(@"messages = %@", messages);
+    return messages;
+}
+
+
+
+
+
+- (NSUInteger)countOfObjectsInData
+{
+    NSUInteger count = self.data.count;
+    NSLog(@"count %lu", (unsigned long)count);
+    
+    return count;
 }
 
 @end

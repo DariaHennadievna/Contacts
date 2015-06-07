@@ -14,7 +14,11 @@
 
 - (instancetype)initWithData:(NSArray *)contactsData;
 
-- (void)countOfObjectsInData;
+- (NSUInteger)countOfObjectsInData;
+
 - (NSDictionary *)gettingDataForOneContactsAtIndex:(NSInteger)index;
+
+- (NSDictionary *)gettingContactInfoForData:(NSDictionary *)data;
+- (NSArray *)gettingMessageInfoForData:(NSDictionary *)dataContact;
 
 @end
