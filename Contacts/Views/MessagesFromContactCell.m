@@ -44,7 +44,6 @@ float const myIndentLeftAndRight = 10.0f;
     
     // for All Label
     CGSize sizeAvatarView;
-    
     sizeAvatarView.width = 50.0f;
     sizeAvatarView.height = 50.0f;
     
@@ -59,7 +58,6 @@ float const myIndentLeftAndRight = 10.0f;
     
     // for Count Of Messages Label
     CGSize sizeCountOfMessagesLabel;
-    
     sizeCountOfMessagesLabel.width = 50.0f;
     sizeCountOfMessagesLabel.height = 20.0f;
     

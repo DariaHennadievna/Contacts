@@ -4,7 +4,7 @@
 //
 //  Created by Admin on 06.06.15.
 //  Copyright (c) 2015 Admin. All rights reserved.
-//
+// мой проект
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>

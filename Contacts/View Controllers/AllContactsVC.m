@@ -67,7 +67,7 @@ float const indentTopAndBottomForCell = 5.0f;
     }
     else
     {
-        return 5;
+        return [[DataManager sharedInstance] numberOfContacts];// count of contacts
     }   
 }
 

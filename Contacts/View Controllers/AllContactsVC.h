@@ -13,6 +13,7 @@
 #import "ContactVC.h"
 #import "RequestManager.h"
 #import "DataManagerForContacts.h"
+#import "DataManager.h"
 
 @interface AllContactsVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
