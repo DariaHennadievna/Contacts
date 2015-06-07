@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Message;
+@class Avatar, Message;
 
 @interface Contact : NSManagedObject
 
@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSNumber * userID;
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSSet *messages;
+@property (nonatomic, retain) Avatar *photo;
 @end
 
 @interface Contact (CoreDataGeneratedAccessors)

@@ -7,6 +7,7 @@
 //
 
 #import "Contact.h"
+#import "Avatar.h"
 #import "Message.h"
 
 
@@ -16,5 +17,6 @@
 @dynamic userID;
 @dynamic username;
 @dynamic messages;
+@dynamic photo;
 
 @end

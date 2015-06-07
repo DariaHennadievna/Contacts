@@ -166,10 +166,15 @@ float const indentTopAndBottomForCell = 5.0f;
 
 - (void)dataProcessingForContactsData
 {
-    [self.dataManagerForContacts countOfObjectsInData];
+    //NSUInteger *countOfData = [self.dataManagerForContacts countOfObjectsInData];
+    NSArray *contactsData = self.dataManagerForContacts.data;
+    for (NSDictionary *dataForContact in contactsData)
+    {
+        
+    }
     NSDictionary *contact = [self.dataManagerForContacts gettingDataForOneContactsAtIndex:1];
-    NSDictionary *contactInfo = [self.dataManagerForContacts gettingContactInfoForData:contact];
-    NSArray *messageInfo = [self.dataManagerForContacts gettingMessageInfoForData:contact];
+    //NSDictionary *contactInfo = [self.dataManagerForContacts gettingContactInfoForData:contact];
+    //NSArray *messageInfo = [self.dataManagerForContacts gettingMessageInfoForData:contact];
     //NSLog(@"contact = %@",contact);
 }
 

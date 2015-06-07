@@ -56,7 +56,7 @@
     return [contactInfo copy];
 }
 
-- (NSArray *)gettingMessageInfoForData:(NSDictionary *)dataContact
+- (NSArray *)gettingMessagesInfoForContact:(NSDictionary *)dataContact
 {
     NSArray *messagesData = [dataContact objectForKey:MESSAGES];
     NSArray *messages = [[NSArray alloc] initWithArray:messagesData];
@@ -65,6 +65,12 @@
     return messages;
 }
 
+/*
+- (NSDictionary *)gettingMessageForContact:(NSDictionary *)contact atIndex:(NSInteger)index
+{
+    //...
+}
+*/
 
 
 

@@ -19,6 +19,6 @@
 - (NSDictionary *)gettingDataForOneContactsAtIndex:(NSInteger)index;
 
 - (NSDictionary *)gettingContactInfoForData:(NSDictionary *)data;
-- (NSArray *)gettingMessageInfoForData:(NSDictionary *)dataContact;
+- (NSArray *)gettingMessagesInfoForContact:(NSDictionary *)dataContact;
 
 @end
