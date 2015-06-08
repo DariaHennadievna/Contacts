@@ -14,6 +14,8 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
 
 @property (nonatomic) UITableView *tableView;
 @property CGFloat heightForRow;
+@property (nonatomic, strong) NSArray * allMessages;
+@property (nonatomic, strong) NSNumber *clickedContact;
 
 @end
 
@@ -22,6 +24,7 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.allMessages = [[DataManager sharedInstance] allMessages];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[MessageFromContactCell class]
@@ -47,7 +50,7 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return [self.allMessages count];
 }
 
 
@@ -56,6 +59,7 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
     MessageFromContactCell *messageFromContactCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessageFromContactCell class]) forIndexPath:indexPath];
     messageFromContactCell.selectionStyle = UITableViewCellSelectionStyleNone;
     messageFromContactCell.delegate = self;
+    /*
     if (indexPath.row == 0)
     {
         messageFromContactCell.messageLabel.text = @"Enter large amount of text here";
@@ -64,10 +68,22 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
     {
         messageFromContactCell.messageLabel.text = @"Enter large amount of text here kfjgd ервраве ке екнукеек екнуен etyerty etyerty erry eturyu";
     }
+    */
+    NSDictionary * messageDictionary = [self.allMessages objectAtIndex:indexPath.row];
+    
+    messageFromContactCell.messageLabel.text = [messageDictionary objectForKey:TEXT] ;
+    NSNumber *userID = (NSNumber *)[messageDictionary objectForKey:USER_ID];
+    [messageFromContactCell.avatarButton addTarget:self action:@selector(avatarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    messageFromContactCell.avatarButton.tag = [userID integerValue];
+    NSData *imageData = [[DataManager sharedInstance] avatarForUserContact:userID];
+    messageFromContactCell.avatar.image  = [UIImage imageWithData:imageData];
+    
+    [messageFromContactCell.messageLabel sizeToFit];
+
     
     [messageFromContactCell.messageLabel sizeToFit];
     
-    CGFloat heightForAvatar = CGRectGetHeight(messageFromContactCell.avatarView.bounds);
+    CGFloat heightForAvatar = CGRectGetHeight(messageFromContactCell.avatarButton.bounds);
     CGFloat heightForTimeAgo = CGRectGetHeight(messageFromContactCell.timeAgoLabel.bounds);
     CGFloat heightForMessage = CGRectGetHeight(messageFromContactCell.messageLabel.bounds);
     
@@ -111,29 +127,32 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - Message Frome Contact Cell Deledate
-
-- (void)didPressedAvatar:(MessageFromContactCell *)cell
+#pragma mark - Actions
+//
+- (void)avatarButtonPressed:(UIButton *)sender
 {
-    NSLog(@"LOL Click!!!");
+    self.clickedContact = [NSNumber numberWithInteger:sender.tag];
+    [self performSegueWithIdentifier:@"goToContactFromAll" sender:self];  
+    
 }
+
 
 #pragma mark - Navigation
 
-/*
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"ShowContact"])
+    if ([segue.identifier isEqualToString:@"goToContactFromAll"])
     {
         if ([segue.destinationViewController isKindOfClass:[ContactVC class]])
         {
             ContactVC *contactsVC =
-             (ContactVC *)segue.destinationViewController;
-            contactsVC.title = @"Виталя";            
+            (ContactVC *)segue.destinationViewController;
+            contactsVC.title = @"Contact";
+            contactsVC.userID  = self.clickedContact;
         }
     }
 }
-*/
 
 
 @end

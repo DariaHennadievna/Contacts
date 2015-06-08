@@ -2,7 +2,7 @@
 //  Contact.m
 //  Contacts
 //
-//  Created by Admin on 07.06.15.
+//  Created by Admin on 08.06.15.
 //  Copyright (c) 2015 Admin. All rights reserved.
 //
 
@@ -16,6 +16,7 @@
 @dynamic avatarURL;
 @dynamic userID;
 @dynamic username;
+@dynamic numberOfMessages;
 @dynamic messages;
 @dynamic photo;
 

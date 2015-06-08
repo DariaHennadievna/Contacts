@@ -11,4 +11,6 @@
 
 @interface ContactVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property(nonatomic, strong) NSNumber * userID;
+
 @end

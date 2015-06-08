@@ -10,6 +10,7 @@
 #import "MessageFromContactCell.h"
 #import "AllContactsVC.h"
 #import "ContactVC.h"
+#import "DataManager.h"
 
 @interface AllMassagesVC : UIViewController <UITableViewDataSource,
                                                 UITableViewDelegate,

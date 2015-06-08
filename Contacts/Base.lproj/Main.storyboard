@@ -57,6 +57,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="4xD-pR-qrB"/>
+                    <connections>
+                        <segue destination="kcG-m9-b1D" kind="push" identifier="goToContactFromAll" id="XoR-S6-3dG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hXl-Pm-eW5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -87,4 +90,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="XoR-S6-3dG"/>
+    </inferredMetricsTieBreakers>
 </document>

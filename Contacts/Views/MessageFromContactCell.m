@@ -51,10 +51,13 @@ float const indentLeftAndRightForMessagesFromContactCell = 10.0f;
     myOrigine.y = indentTopAndBottomForMessagesFromContactCell;
     myFrame = CGRectMake(myOrigine.x, myOrigine.y, sizeAvatarView.width, sizeAvatarView.height);
     
-    self.avatarView = [[UIButton alloc] initWithFrame:myFrame];
-    self.avatarView.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
-    [self.avatarView addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.avatarView];
+    self.avatarButton = [[UIButton alloc] initWithFrame:myFrame];
+    self.avatar = [[UIImageView alloc] initWithFrame:myFrame];
+    
+    //self.avatarView.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
+    
+    [self.avatarButton addSubview:self.avatar];
+    [self addSubview:self.avatarButton];
     
     // for Time Ago Label
     CGSize sizeTimeAgoLabel;
@@ -63,7 +66,7 @@ float const indentLeftAndRightForMessagesFromContactCell = 10.0f;
     sizeTimeAgoLabel.height = 15.0f;
     
     myOrigine.x = indentLeftAndRightForMessagesFromContactCell;
-    myOrigine.y = indentTopAndBottomForMessagesFromContactCell + self.avatarView.frame.size.height + 3.0f;
+    myOrigine.y = indentTopAndBottomForMessagesFromContactCell + self.avatarButton.frame.size.height + 3.0f;
     myFrame = CGRectMake(myOrigine.x, myOrigine.y, sizeTimeAgoLabel.width, sizeTimeAgoLabel.height);
     
     self.timeAgoLabel = [[UILabel alloc] initWithFrame:myFrame];
@@ -85,8 +88,8 @@ float const indentLeftAndRightForMessagesFromContactCell = 10.0f;
     self.messageLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     
     self.messageLabel.numberOfLines = 0;
-    self.messageLabel.text = @"Enter large amount of text here";
-    [self.messageLabel sizeToFit];
+    //self.messageLabel.text = @"Enter large amount of text here";
+    //[self.messageLabel sizeToFit];
     
     [self addSubview:self.messageLabel];
     

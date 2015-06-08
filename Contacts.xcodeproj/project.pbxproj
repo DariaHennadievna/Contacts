@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		840D47EA1B2484D5004EAFB2 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D47E91B2484D5004EAFB2 /* Message.m */; };
-		840D47ED1B2484D5004EAFB2 /* Avatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D47EC1B2484D5004EAFB2 /* Avatar.m */; };
-		840D47F31B24857A004EAFB2 /* Avatar+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D47F21B24857A004EAFB2 /* Avatar+Creating.m */; };
-		840D47F61B2486EA004EAFB2 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D47F51B2486EA004EAFB2 /* Contact.m */; };
+		841D17631B255359002197AD /* NSManagedObject+Serialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 841D17621B255359002197AD /* NSManagedObject+Serialization.m */; };
+		841D176F1B255F31002197AD /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 841D176E1B255F31002197AD /* Contact.m */; };
+		841D17721B255F32002197AD /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 841D17711B255F32002197AD /* Message.m */; };
+		841D17751B255F32002197AD /* Avatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 841D17741B255F32002197AD /* Avatar.m */; };
+		841D177C1B256680002197AD /* profile-image-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 841D177A1B256680002197AD /* profile-image-placeholder.png */; };
+		841D177D1B256680002197AD /* profile-image-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 841D177B1B256680002197AD /* profile-image-placeholder@2x.png */; };
 		84446D421B2300AC00C81679 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84446D411B2300AC00C81679 /* main.m */; };
 		84446D451B2300AC00C81679 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84446D441B2300AC00C81679 /* AppDelegate.m */; };
 		84446D481B2300AC00C81679 /* Contacts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84446D461B2300AC00C81679 /* Contacts.xcdatamodeld */; };
@@ -26,10 +28,6 @@
 		84446D861B230D7D00C81679 /* AllMassagesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84446D851B230D7D00C81679 /* AllMassagesVC.m */; };
 		84446D891B230DC300C81679 /* ContactVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84446D881B230DC300C81679 /* ContactVC.m */; };
 		845A42921B24CB3600B443BA /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 845A42911B24CB3600B443BA /* DataManager.m */; };
-		847A7AEC1B2448A600A22046 /* Contact+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = 847A7AEB1B2448A600A22046 /* Contact+Creating.m */; };
-		847A7AEF1B2448E900A22046 /* Message+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = 847A7AEE1B2448E900A22046 /* Message+Creating.m */; };
-		847A7AFF1B245A0B00A22046 /* HelperToSaveData.m in Sources */ = {isa = PBXBuildFile; fileRef = 847A7AFE1B245A0B00A22046 /* HelperToSaveData.m */; };
-		847A7B021B245A3700A22046 /* HelperToGetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 847A7B011B245A3700A22046 /* HelperToGetData.m */; };
 		84EEE2A51B237A04005CF9D9 /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EEE2A41B237A04005CF9D9 /* RequestManager.m */; };
 		84EEE2A91B2384D0005CF9D9 /* DataManagerForContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EEE2A81B2384D0005CF9D9 /* DataManagerForContacts.m */; };
 		84EEE2AF1B238661005CF9D9 /* DataManagerForImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EEE2AE1B238661005CF9D9 /* DataManagerForImage.m */; };
@@ -49,14 +47,16 @@
 /* Begin PBXFileReference section */
 		2C3E8F84DDFEE96E725864AD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3BBC25154B2B95BCA3C5E781 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		840D47E81B2484D4004EAFB2 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Message.h; path = DBModel/Message.h; sourceTree = "<group>"; };
-		840D47E91B2484D5004EAFB2 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Message.m; path = DBModel/Message.m; sourceTree = "<group>"; };
-		840D47EB1B2484D5004EAFB2 /* Avatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Avatar.h; path = DBModel/Avatar.h; sourceTree = "<group>"; };
-		840D47EC1B2484D5004EAFB2 /* Avatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Avatar.m; path = DBModel/Avatar.m; sourceTree = "<group>"; };
-		840D47F11B24857A004EAFB2 /* Avatar+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Avatar+Creating.h"; path = "DBModel/Avatar+Creating.h"; sourceTree = "<group>"; };
-		840D47F21B24857A004EAFB2 /* Avatar+Creating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Avatar+Creating.m"; path = "DBModel/Avatar+Creating.m"; sourceTree = "<group>"; };
-		840D47F41B2486EA004EAFB2 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = DBModel/Contact.h; sourceTree = "<group>"; };
-		840D47F51B2486EA004EAFB2 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Contact.m; path = DBModel/Contact.m; sourceTree = "<group>"; };
+		841D17611B255359002197AD /* NSManagedObject+Serialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Serialization.h"; path = "Helpers With DB/NSManagedObject+Serialization.h"; sourceTree = "<group>"; };
+		841D17621B255359002197AD /* NSManagedObject+Serialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Serialization.m"; path = "Helpers With DB/NSManagedObject+Serialization.m"; sourceTree = "<group>"; };
+		841D176D1B255F31002197AD /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = DBModel/Contact.h; sourceTree = "<group>"; };
+		841D176E1B255F31002197AD /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Contact.m; path = DBModel/Contact.m; sourceTree = "<group>"; };
+		841D17701B255F32002197AD /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Message.h; path = DBModel/Message.h; sourceTree = "<group>"; };
+		841D17711B255F32002197AD /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Message.m; path = DBModel/Message.m; sourceTree = "<group>"; };
+		841D17731B255F32002197AD /* Avatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Avatar.h; path = DBModel/Avatar.h; sourceTree = "<group>"; };
+		841D17741B255F32002197AD /* Avatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Avatar.m; path = DBModel/Avatar.m; sourceTree = "<group>"; };
+		841D177A1B256680002197AD /* profile-image-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-image-placeholder.png"; sourceTree = "<group>"; };
+		841D177B1B256680002197AD /* profile-image-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-image-placeholder@2x.png"; sourceTree = "<group>"; };
 		84446D3C1B2300AC00C81679 /* Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84446D401B2300AC00C81679 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84446D411B2300AC00C81679 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -85,14 +85,6 @@
 		84446D881B230DC300C81679 /* ContactVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactVC.m; path = "View Controllers/ContactVC.m"; sourceTree = "<group>"; };
 		845A42901B24CB3600B443BA /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = "Data Manager/DataManager.h"; sourceTree = "<group>"; };
 		845A42911B24CB3600B443BA /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = "Data Manager/DataManager.m"; sourceTree = "<group>"; };
-		847A7AEA1B2448A600A22046 /* Contact+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Contact+Creating.h"; path = "DBModel/Contact+Creating.h"; sourceTree = "<group>"; };
-		847A7AEB1B2448A600A22046 /* Contact+Creating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Contact+Creating.m"; path = "DBModel/Contact+Creating.m"; sourceTree = "<group>"; };
-		847A7AED1B2448E900A22046 /* Message+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Message+Creating.h"; path = "DBModel/Message+Creating.h"; sourceTree = "<group>"; };
-		847A7AEE1B2448E900A22046 /* Message+Creating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Message+Creating.m"; path = "DBModel/Message+Creating.m"; sourceTree = "<group>"; };
-		847A7AFD1B245A0B00A22046 /* HelperToSaveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelperToSaveData.h; path = "Helpers With DB/HelperToSaveData.h"; sourceTree = "<group>"; };
-		847A7AFE1B245A0B00A22046 /* HelperToSaveData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelperToSaveData.m; path = "Helpers With DB/HelperToSaveData.m"; sourceTree = "<group>"; };
-		847A7B001B245A3700A22046 /* HelperToGetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelperToGetData.h; path = "Helpers With DB/HelperToGetData.h"; sourceTree = "<group>"; };
-		847A7B011B245A3700A22046 /* HelperToGetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelperToGetData.m; path = "Helpers With DB/HelperToGetData.m"; sourceTree = "<group>"; };
 		84EEE2A31B237A04005CF9D9 /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestManager.h; path = "Request Manager/RequestManager.h"; sourceTree = "<group>"; };
 		84EEE2A41B237A04005CF9D9 /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestManager.m; path = "Request Manager/RequestManager.m"; sourceTree = "<group>"; };
 		84EEE2A71B2384D0005CF9D9 /* DataManagerForContacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManagerForContacts.h; path = "Data Manager/DataManagerForContacts.h"; sourceTree = "<group>"; };
@@ -169,9 +161,10 @@
 		84446D3F1B2300AC00C81679 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				841D177A1B256680002197AD /* profile-image-placeholder.png */,
+				841D177B1B256680002197AD /* profile-image-placeholder@2x.png */,
 				84446D4F1B2300AC00C81679 /* Images.xcassets */,
 				84446D511B2300AC00C81679 /* LaunchScreen.xib */,
-				84446D461B2300AC00C81679 /* Contacts.xcdatamodeld */,
 				84446D401B2300AC00C81679 /* Info.plist */,
 				84446D411B2300AC00C81679 /* main.m */,
 			);
@@ -200,8 +193,8 @@
 			children = (
 				84446D811B230D1900C81679 /* AllContactsVC.h */,
 				84446D821B230D1900C81679 /* AllContactsVC.m */,
-				84446D851B230D7D00C81679 /* AllMassagesVC.m */,
 				84446D841B230D7D00C81679 /* AllMassagesVC.h */,
+				84446D851B230D7D00C81679 /* AllMassagesVC.m */,
 				84446D871B230DC300C81679 /* ContactVC.h */,
 				84446D881B230DC300C81679 /* ContactVC.m */,
 			);
@@ -250,18 +243,15 @@
 		847A7AE91B24482300A22046 /* DBModel */ = {
 			isa = PBXGroup;
 			children = (
-				840D47F41B2486EA004EAFB2 /* Contact.h */,
-				840D47F51B2486EA004EAFB2 /* Contact.m */,
-				840D47EB1B2484D5004EAFB2 /* Avatar.h */,
-				840D47EC1B2484D5004EAFB2 /* Avatar.m */,
-				840D47E81B2484D4004EAFB2 /* Message.h */,
-				840D47E91B2484D5004EAFB2 /* Message.m */,
-				847A7AEA1B2448A600A22046 /* Contact+Creating.h */,
-				847A7AEB1B2448A600A22046 /* Contact+Creating.m */,
-				840D47F11B24857A004EAFB2 /* Avatar+Creating.h */,
-				840D47F21B24857A004EAFB2 /* Avatar+Creating.m */,
-				847A7AED1B2448E900A22046 /* Message+Creating.h */,
-				847A7AEE1B2448E900A22046 /* Message+Creating.m */,
+				84446D461B2300AC00C81679 /* Contacts.xcdatamodeld */,
+				841D17731B255F32002197AD /* Avatar.h */,
+				841D17741B255F32002197AD /* Avatar.m */,
+				841D17701B255F32002197AD /* Message.h */,
+				841D17711B255F32002197AD /* Message.m */,
+				841D176D1B255F31002197AD /* Contact.h */,
+				841D176E1B255F31002197AD /* Contact.m */,
+				845A42901B24CB3600B443BA /* DataManager.h */,
+				845A42911B24CB3600B443BA /* DataManager.m */,
 			);
 			name = DBModel;
 			sourceTree = "<group>";
@@ -269,10 +259,8 @@
 		847A7AFC1B2458D800A22046 /* HelpersWithDB */ = {
 			isa = PBXGroup;
 			children = (
-				847A7AFD1B245A0B00A22046 /* HelperToSaveData.h */,
-				847A7AFE1B245A0B00A22046 /* HelperToSaveData.m */,
-				847A7B001B245A3700A22046 /* HelperToGetData.h */,
-				847A7B011B245A3700A22046 /* HelperToGetData.m */,
+				841D17611B255359002197AD /* NSManagedObject+Serialization.h */,
+				841D17621B255359002197AD /* NSManagedObject+Serialization.m */,
 			);
 			name = HelpersWithDB;
 			sourceTree = "<group>";
@@ -293,8 +281,6 @@
 				84EEE2A81B2384D0005CF9D9 /* DataManagerForContacts.m */,
 				84EEE2AD1B238661005CF9D9 /* DataManagerForImage.h */,
 				84EEE2AE1B238661005CF9D9 /* DataManagerForImage.m */,
-				845A42901B24CB3600B443BA /* DataManager.h */,
-				845A42911B24CB3600B443BA /* DataManager.m */,
 			);
 			name = DataManager;
 			sourceTree = "<group>";
@@ -391,8 +377,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				84446D4E1B2300AC00C81679 /* Main.storyboard in Resources */,
+				841D177C1B256680002197AD /* profile-image-placeholder.png in Resources */,
 				84446D531B2300AC00C81679 /* LaunchScreen.xib in Resources */,
 				84446D501B2300AC00C81679 /* Images.xcassets in Resources */,
+				841D177D1B256680002197AD /* profile-image-placeholder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,27 +432,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				84446D6D1B2306DD00C81679 /* AllMessagesCell.m in Sources */,
-				847A7AEC1B2448A600A22046 /* Contact+Creating.m in Sources */,
 				84446D451B2300AC00C81679 /* AppDelegate.m in Sources */,
 				84446D701B2307D300C81679 /* MessagesFromContactCell.m in Sources */,
-				840D47F61B2486EA004EAFB2 /* Contact.m in Sources */,
-				840D47ED1B2484D5004EAFB2 /* Avatar.m in Sources */,
-				847A7AEF1B2448E900A22046 /* Message+Creating.m in Sources */,
+				841D17631B255359002197AD /* NSManagedObject+Serialization.m in Sources */,
 				84EEE2AF1B238661005CF9D9 /* DataManagerForImage.m in Sources */,
 				84446D891B230DC300C81679 /* ContactVC.m in Sources */,
 				845A42921B24CB3600B443BA /* DataManager.m in Sources */,
-				840D47EA1B2484D5004EAFB2 /* Message.m in Sources */,
-				847A7B021B245A3700A22046 /* HelperToGetData.m in Sources */,
 				84446D771B230ADE00C81679 /* MessageFromContactCell.m in Sources */,
-				847A7AFF1B245A0B00A22046 /* HelperToSaveData.m in Sources */,
 				84446D421B2300AC00C81679 /* main.m in Sources */,
 				84446D7D1B230B4700C81679 /* MessageCell.m in Sources */,
 				84EEE2A51B237A04005CF9D9 /* RequestManager.m in Sources */,
-				840D47F31B24857A004EAFB2 /* Avatar+Creating.m in Sources */,
 				84446D861B230D7D00C81679 /* AllMassagesVC.m in Sources */,
+				841D17751B255F32002197AD /* Avatar.m in Sources */,
 				84446D481B2300AC00C81679 /* Contacts.xcdatamodeld in Sources */,
 				84EEE2A91B2384D0005CF9D9 /* DataManagerForContacts.m in Sources */,
+				841D17721B255F32002197AD /* Message.m in Sources */,
 				84446D831B230D1900C81679 /* AllContactsVC.m in Sources */,
+				841D176F1B255F31002197AD /* Contact.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

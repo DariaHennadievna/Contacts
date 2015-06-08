@@ -7,7 +7,7 @@
 //
 
 #import "DataManagerForContacts.h"
-#import "Contact+Creating.h"
+
 
 #define MESSAGES  @"messages"
 
@@ -36,6 +36,7 @@
     return contact;
 }
 
+/*
 - (NSDictionary *)gettingContactInfoForData:(NSDictionary *)dataContact
 {
     NSMutableDictionary *contactInfo = [[NSMutableDictionary alloc] init];
@@ -55,6 +56,7 @@
     NSLog(@"dictionari of contact's data = %@", contactInfo);
     return [contactInfo copy];
 }
+ */
 
 - (NSArray *)gettingMessagesInfoForContact:(NSDictionary *)dataContact
 {

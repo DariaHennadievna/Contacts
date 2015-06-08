@@ -18,7 +18,8 @@
 
 @interface MessageFromContactCell : UITableViewCell
 
-@property (nonatomic) UIButton *avatarView;
+@property (nonatomic) UIButton *avatarButton;
+@property (nonatomic) UIImageView *avatar;
 @property (nonatomic) UILabel *messageLabel;
 @property (nonatomic) UILabel *timeAgoLabel;
 

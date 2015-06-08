@@ -7,6 +7,7 @@
 //
 
 #import "AllContactsVC.h"
+#import "UIImageView+AFNetworking.h"
 
 float const indentTopAndBottomForCell = 5.0f;
 
@@ -17,6 +18,8 @@ float const indentTopAndBottomForCell = 5.0f;
 @property CGFloat heightForRowInSecondSection;
 
 @property (nonatomic) DataManagerForContacts *dataManagerForContacts;
+@property (nonatomic, strong) NSArray *sortedArrayOfContacts;
+@property (nonatomic, strong) NSNumber *clickedContact;
 
 
 @end
@@ -33,8 +36,9 @@ float const indentTopAndBottomForCell = 5.0f;
     [self.tableView registerClass:[MessagesFromContactCell class]
            forCellReuseIdentifier:NSStringFromClass([MessagesFromContactCell class])];
     
+    
+    self.sortedArrayOfContacts = [[DataManager sharedInstance] sortedArrayOfContacts];
     [self startGetContacts];
-    //[self startGetAvatar];
     
 }
 
@@ -86,9 +90,41 @@ float const indentTopAndBottomForCell = 5.0f;
         MessagesFromContactCell *messagesFromContactCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessagesFromContactCell class]) forIndexPath:indexPath];
         self.heightForRowInSecondSection = CGRectGetHeight(messagesFromContactCell.avatarView.bounds) +
                                                         (indentTopAndBottomForCell * 2);
+        
+        NSDictionary *dict =  self.sortedArrayOfContacts[indexPath.row];
+        messagesFromContactCell.userName.text = [dict objectForKey:USER_NAME];
+        messagesFromContactCell.numberOfMessagesLabel.text = [NSString stringWithFormat:@"%@", [dict objectForKey:NUMBER_OF_MESSAGES] ];
+        
+        // используем TAG для того чтобы знать какую ячейку нажали с каким пользователем
+        // в TAG записываем ID пользователя
+        messagesFromContactCell.tag =  [(NSNumber *)[dict objectForKey:USER_ID] unsignedIntegerValue];
+        NSString * urlString  = [dict objectForKey:AVATAR_URL];
+        
+        __weak MessagesFromContactCell *weakCell = messagesFromContactCell;
+        
+        // пока не получили ни одной картинки делаем заставочки для аватарок
+        [messagesFromContactCell.avatarView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] placeholderImage:[UIImage imageNamed:@"profile-image-placeholder.png"]
+        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+         {
+             // если данные приходят отображаем картинку
+             weakCell.avatarView.image = image;
+             [weakCell  setNeedsLayout];
+             
+             // и сохраняем картинку в базу
+             [[DataManager sharedInstance] saveAvatarForUserContact:[NSNumber numberWithInteger:weakCell.tag] withImage:UIImageJPEGRepresentation(image, 1.0)];
+             
+         }
+        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error)
+         {
+             // если какая то ошибка или нет интернета то выгружаем картинку из базы
+             NSLog(@"%@",[error localizedDescription]);
+             NSData * imageData = [[DataManager sharedInstance] avatarForUserContact:[NSNumber numberWithInteger:weakCell.tag]];
+             weakCell.avatarView.image  = [UIImage imageWithData:imageData];
+             [weakCell setNeedsLayout];
+         }];
+        
         return messagesFromContactCell;
     }
-    
 }
 
 #pragma mark - Table View Delegate
@@ -121,7 +157,11 @@ float const indentTopAndBottomForCell = 5.0f;
     }
     else
     {
+        MessagesFromContactCell *cell = (MessagesFromContactCell*)[tableView cellForRowAtIndexPath:indexPath];
+        // этот параметр userID передадим следующему контроллеру
+        self.clickedContact = [NSNumber numberWithInteger:cell.tag];
         [self performSegueWithIdentifier:@"ShowContact" sender:self];
+        
     }
 }
 
@@ -135,48 +175,20 @@ float const indentTopAndBottomForCell = 5.0f;
 - (void)startGetContacts
 {
     RequestManager *myRequestManager = [[RequestManager alloc] init];
-    [myRequestManager gettingContactsWithCallback:^(NSError *error, NSArray *result) {
-        if (error)
-        {
-            return;
-        }
-        //NSLog(@"DATA %@", result);
-        DataManagerForContacts *dataManager = [[DataManagerForContacts alloc] initWithData:result];
-        self.dataManagerForContacts = dataManager;
-        [self dataProcessingForContactsData];
-    }];
+    [myRequestManager gettingContactsWithCallback:^(NSError *error, NSArray *result)
+     {
+         if (error)
+         {
+             return;
+         }
+         //NSLog(@"DATA %@", result);
+         
+         [[DataManager sharedInstance] setAllContacts:result];
+         self.sortedArrayOfContacts = [[DataManager sharedInstance] sortedArrayOfContacts];
+         [self.tableView reloadData];
+     }];
 }
 
-/*
-- (void)startGetAvatar
-{
-    RequestManager *myRequestManager = [[RequestManager alloc] init];
-    [myRequestManager gettingAvatarWithCallback:^(NSError *error, NSData *result) {
-        if (error)
-        {
-            return;
-        }
-        
-        NSLog(@"Data = %@", result);
-    }];
-}
-*/
-
-#pragma mark - Data Processing
-
-- (void)dataProcessingForContactsData
-{
-    //NSUInteger *countOfData = [self.dataManagerForContacts countOfObjectsInData];
-    NSArray *contactsData = self.dataManagerForContacts.data;
-    for (NSDictionary *dataForContact in contactsData)
-    {
-        
-    }
-    NSDictionary *contact = [self.dataManagerForContacts gettingDataForOneContactsAtIndex:1];
-    //NSDictionary *contactInfo = [self.dataManagerForContacts gettingContactInfoForData:contact];
-    //NSArray *messageInfo = [self.dataManagerForContacts gettingMessageInfoForData:contact];
-    //NSLog(@"contact = %@",contact);
-}
 
 #pragma mark - Navigation
 
@@ -198,7 +210,8 @@ float const indentTopAndBottomForCell = 5.0f;
         {
             ContactVC *contactsVC =
             (ContactVC *)segue.destinationViewController;
-            contactsVC.title = @"Виталя";            
+            contactsVC.title = @"Contact";
+            contactsVC.userID  = self.clickedContact;
         }
     }
 }

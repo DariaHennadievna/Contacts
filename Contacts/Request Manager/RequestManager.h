@@ -18,5 +18,11 @@ typedef void (^AvatarAPICallback)(NSError* error, NSData *result);
 
 - (void)gettingContactsWithCallback:(void (^)(NSError *error, NSArray *result))callback;
 - (void)gettingAvatarWithCallback:(void (^)(NSError *error, NSData *result))callback;
+/*
+- (void)setImageWithURLRequest:(NSURLRequest *)urlRequest
+              placeholderImage:(UIImage *)placeholderImage
+                       success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
+                       failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+ */
 
 @end

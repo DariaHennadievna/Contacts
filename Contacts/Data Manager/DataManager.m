@@ -11,10 +11,7 @@
 #import "Avatar.h"
 #import "Message.h"
 
-// my keys
-#define AVATAR_URL @"avatar_url"
-#define USER_ID    @"user_id"
-#define USER_NAME  @"username"
+
 
 @interface DataManager ()
 
@@ -62,29 +59,52 @@
 }
 
 - (NSUInteger)numberOfContacts
-{    
+{
     NSUInteger number = 0;
+    NSArray * array = [self arrayOfContacts];
+    if (array)
+    {
+        number = [array count];
+    }
+    
+    NSLog(@"numberOfContacts %lu", (unsigned long)number);
+    return number;
+}
+
+
+- (NSArray *)arrayOfContacts
+{
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Contact"];
     NSError *error = nil;
     NSArray *matches = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error)
     {
         NSLog(@"Error in executeFetchRequest in numberOfContacts func");
-        return number;
+        return nil;
     }
-    else
+    
+    return matches;
+}
+
+
+- (NSArray *)unsortedDictionaryArrayOfContacts
+{
+    NSMutableArray * dictionaryArray = [NSMutableArray array];
+    NSArray * arrayOfContacts = [self arrayOfContacts];
+    for (Contact * userContact in arrayOfContacts)
     {
-        number = [matches count];
+        NSDictionary * dictionary = [userContact toDictionaryWithNoRelationship];
+        [dictionaryArray addObject:dictionary];
     }
-    NSLog(@"numberOfContacts %lu", (unsigned long)number);
-    return number;
+    
+    return [dictionaryArray copy];
 }
 
 
 - (void)setContactWithDictionary:(NSDictionary *)params
 {
-    NSNumber *userID = nil;
-    Contact *userContact = nil;
+    NSNumber * userID = nil;
+    Contact * userContact = nil;
     if ([params objectForKey:USER_ID])
     {
         userID = [params objectForKey:USER_ID];
@@ -102,17 +122,33 @@
         if ([params objectForKey:AVATAR_URL])
         {
             userContact.avatarURL = [params objectForKey:AVATAR_URL];
+            
         }
-        
-        [self saveContext];
+        /// получем сообщения из массива сообщений
+        NSArray * messages = [params objectForKey:MESSAGES];
+        // если есть сообщения в массиве
+        if ([messages count])
+        {
+            // заполняем сообщения
+            for (NSDictionary * dict in messages)
+            {
+                NSNumber * created = [dict objectForKey:CREATED];
+                if (created)
+                {
+                    NSString *text = [dict objectForKey:TEXT];
+                    [self setMessageCreated:created withText:text ? text:@"" forContact:userContact];
+                }
+            }
+            userContact.numberOfMessages = [NSNumber numberWithUnsignedInteger:[userContact.messages count]];
+        }
     }
 }
 
+
 - (Contact *)contactWithUserID:(NSNumber *)userID
 {
-    Contact * userContact = nil;
-    NSInteger intUserID = [userID intValue];
-    if (intUserID)
+    Contact *userContact = nil;
+    if ([userID intValue])
     {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Contact"];
         request.predicate = [NSPredicate predicateWithFormat:@"userID = %@", userID];
@@ -125,13 +161,13 @@
             return nil;
         }
         
-        if (!matches || (matches.count > 1))
+        if (!matches || ([matches count] > 1))
         {
             NSLog(@"Error in Core Data, contactWithUserID ");
             return nil;
         }
         // проверяем есть ли такой контакт с таким ID и создаем новый если нет
-        else if (!matches.count)
+        else if (![matches count])
         {
             userContact  =  [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.managedObjectContext];
             userContact.userID = userID;
@@ -147,6 +183,177 @@
     
     return userContact;
 }
+
+
+- (void)setMessageCreated:(NSNumber *)created
+                 withText:(NSString *)text
+               forContact:(Contact *)userContact
+{
+    if (userContact)
+    {
+        //проверяем есть ли вообще сообщения у данного юзера
+        BOOL isExist = NO;
+        if ([userContact.messages count])
+        {
+            for (Message *tempUserMessage in userContact.messages)
+            {
+                //  убираем повторяющиеся сообщения по содержанию и по времени (не может один юзер создать 2
+                //  сообшения одновременно)
+                if ([tempUserMessage.created isEqualToNumber:created] && [tempUserMessage.text isEqualToString:text])
+                {
+                    isExist = YES;
+                }
+            }
+            // если в списке уже имеющихся сообщений нет этого
+            if (!isExist)
+            {
+                // добавляем его..
+                [self createMessageEntityCreated:created withText:text forContact:userContact];
+            }
+        }
+        // если сообщений нету, то добавляем без всяких "НО и ЕСЛИ"..
+        else
+        {
+            [self createMessageEntityCreated:created withText:text forContact:userContact];
+        }
+    }
+}
+
+- (void)createMessageEntityCreated:(NSNumber *)created
+                          withText:(NSString *)text
+                        forContact:(Contact *)userContact
+{
+    Message *userMessage = nil;
+    
+    userMessage  =  [NSEntityDescription insertNewObjectForEntityForName:@"Message" inManagedObjectContext:self.managedObjectContext];
+    
+    userMessage.created  = created;
+    userMessage.text = text;
+    userMessage.from = userContact;
+    
+    [self saveContext];
+}
+
+- (NSDictionary *)contactDictionaryWithUserId:(NSNumber *)userID
+{
+    Contact *userContact = nil;
+    NSDictionary *contactDictionary = nil;
+    if (userID)
+    {
+        userContact = [self contactWithUserID:userID];
+    }
+    if (userContact)
+    {
+        contactDictionary = [userContact toDictionaryWithNoRelationship];
+    }
+    
+    return contactDictionary;
+}
+
+- (NSArray *)sortedArrayOfContacts
+{
+    NSArray *unsortedArray = [self unsortedDictionaryArrayOfContacts];
+    
+    NSSortDescriptor *descriptor= [NSSortDescriptor sortDescriptorWithKey:NUMBER_OF_MESSAGES ascending: NO];
+    NSSortDescriptor *descriptor2 = [NSSortDescriptor sortDescriptorWithKey:USER_NAME ascending: YES];
+    NSArray *sortedArray= [unsortedArray sortedArrayUsingDescriptors:@[ descriptor, descriptor2 ]];
+    
+    return  sortedArray;
+}
+
+- (void)saveAvatarForUserContact:(NSNumber *)userID withImage:(NSData *)imageData;
+{
+    Contact *userContact = nil;
+    if (userID)
+    {
+        userContact = [self contactWithUserID:userID];
+    }
+    if (userContact)
+    {
+        //  если есть фото то просто меняем
+        if (userContact.photo)
+        {
+            userContact.photo.image = imageData;
+        }
+        //если нет то создаем
+        else
+        {
+            Avatar *photoAvatar = nil;
+            photoAvatar  =  [NSEntityDescription insertNewObjectForEntityForName:AVATAR inManagedObjectContext:self.managedObjectContext];
+            photoAvatar.image  = imageData;
+            photoAvatar.owner = userContact;
+        }
+        
+        [self saveContext];
+    }
+}
+
+- (NSData *)avatarForUserContact:(NSNumber *)userID
+{
+    NSData *imageData = nil;
+    Contact *userContact = nil;
+    if (userID)
+    {
+        userContact = [self contactWithUserID:userID];
+    }
+    if (userContact)
+    {
+        imageData = userContact.photo.image;
+    }
+    
+    return imageData;
+}
+
+- (NSArray *)messagesFromUser:(NSNumber *)userID
+{
+    NSMutableArray *messagesArray = [NSMutableArray array];
+    Contact *userContact = nil;
+    if (userID)
+    {
+        userContact = [self contactWithUserID:userID];
+    }
+    if (userContact)
+    {
+        for (Message *tempUserMessage in userContact.messages)
+        {
+            NSDictionary *dict =  [tempUserMessage toDictionaryWithNoRelationship];
+            [messagesArray addObject:dict];
+        }
+    }
+    
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:CREATED ascending: YES];
+    NSArray *sortedArray= [messagesArray sortedArrayUsingDescriptors:@[descriptor]];
+    
+    return sortedArray;
+}
+
+
+- (NSArray *)allMessages
+{
+    NSMutableArray *messagesArray = [NSMutableArray array];
+    NSArray *contacts = [self arrayOfContacts];
+    // получаем все контактики
+    for (Contact *contact in contacts)
+    {
+        //получаем все сообщения для каждого контактика
+        for (Message *message in contact.messages)
+        {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[message toDictionaryWithNoRelationship]];
+            // добавляем в словарь еще и userID, чтоб понятно было от какого user сообщения и еще потом
+            // по нему можно взять картинку
+            [dict setObject:contact.userID forKey:USER_ID];
+            // добавляем словарь в массив
+            [messagesArray addObject:dict];
+        }
+    }
+    
+    // сортируем по времени массив
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:CREATED ascending:YES];
+    NSArray* sortedArray= [messagesArray sortedArrayUsingDescriptors:@[descriptor]];
+    
+    return sortedArray;
+}
+
 
 
 

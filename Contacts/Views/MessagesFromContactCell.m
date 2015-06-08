@@ -44,6 +44,7 @@ float const myIndentLeftAndRight = 10.0f;
     
     // for All Label
     CGSize sizeAvatarView;
+    
     sizeAvatarView.width = 50.0f;
     sizeAvatarView.height = 50.0f;
     
@@ -52,12 +53,13 @@ float const myIndentLeftAndRight = 10.0f;
     
     myFrame = CGRectMake(myOrigine.x, myOrigine.y, sizeAvatarView.width, sizeAvatarView.height);
     
-    self.avatarView = [[UILabel alloc] initWithFrame:myFrame];
+    self.avatarView = [[UIImageView alloc] initWithFrame:myFrame];
     self.avatarView.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     [self addSubview:self.avatarView];
     
     // for Count Of Messages Label
     CGSize sizeCountOfMessagesLabel;
+    
     sizeCountOfMessagesLabel.width = 50.0f;
     sizeCountOfMessagesLabel.height = 20.0f;
     
@@ -66,10 +68,15 @@ float const myIndentLeftAndRight = 10.0f;
     
     myFrame = CGRectMake(myOrigine.x, myOrigine.y, sizeCountOfMessagesLabel.width, sizeCountOfMessagesLabel.height);
     
-    self.countOfMessagesLabel = [[UILabel alloc] initWithFrame:myFrame];
-    self.countOfMessagesLabel.textAlignment = NSTextAlignmentRight;
-    self.countOfMessagesLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
-    [self addSubview:self.countOfMessagesLabel];
+    self.numberOfMessagesLabel = [[UILabel alloc] initWithFrame:myFrame];
+    self.numberOfMessagesLabel.textAlignment = NSTextAlignmentRight;
+    self.numberOfMessagesLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
+    [self addSubview:self.numberOfMessagesLabel];
+    
+    
+    self.userName  = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 140, 40)];
+    self.userName.text = @"blabla";
+    [self addSubview:self.userName];
     
 }
 

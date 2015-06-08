@@ -10,8 +10,9 @@
 
 @interface MessagesFromContactCell : UITableViewCell
 
-@property (nonatomic) UIView *avatarView;
-@property (nonatomic) UILabel *countOfMessagesLabel;
+@property (nonatomic) UIImageView  *avatarView;
+@property (nonatomic) UILabel *numberOfMessagesLabel;
+@property (nonatomic) UILabel *userName;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
