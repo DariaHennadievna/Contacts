@@ -61,22 +61,22 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
    
     NSDictionary * messageDictionary = [self.allMessages objectAtIndex:indexPath.row];
     
-    messageFromContactCell.messageLabel.text = [messageDictionary objectForKey:TEXT] ;
+    messageFromContactCell.messageLabel.text = [messageDictionary objectForKey:TEXT];
     NSNumber *userID = (NSNumber *)[messageDictionary objectForKey:USER_ID];
     [messageFromContactCell.avatarButton addTarget:self action:@selector(avatarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     messageFromContactCell.avatarButton.tag = [userID integerValue];
     NSData *imageData = [[DataManager sharedInstance] avatarForUserContact:userID];
     messageFromContactCell.avatar.image  = [UIImage imageWithData:imageData];
     
-    NSNumber * created = [messageDictionary objectForKey:CREATED];
-    NSDate * date =  [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[created intValue]];
+    [messageFromContactCell.messageLabel sizeToFit];
+    
+    NSNumber *created = [messageDictionary objectForKey:CREATED];
+    NSDate *date =  [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[created intValue]];
     
     // use the "NSDate+TimeAgo.h" pod
     NSString *ago = [date timeAgo];
     messageFromContactCell.timeAgoLabel.text = ago;
-    NSLog(@"Вывести прошедшее время: \"%@\"", ago);
-    
-    [messageFromContactCell.messageLabel sizeToFit];
+    //NSLog(@"Вывести прошедшее время: \"%@\"", ago);
     
     CGFloat heightForAvatar = CGRectGetHeight(messageFromContactCell.avatarButton.bounds);
     CGFloat heightForTimeAgo = CGRectGetHeight(messageFromContactCell.timeAgoLabel.bounds);
@@ -93,7 +93,7 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
     else
     {
         self.heightForRow = heightForMessage + (indentTopAndBottomForCellForAllMessagesVC * 2);
-    }        
+    }
         
     return messageFromContactCell;
         
@@ -108,13 +108,19 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.heightForRow;
+    if (!self.heightForRow)
+    {
+        return 100.0f;
+    }
+    else
+    {
+        return self.heightForRow;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSelector:@selector(deselectRowAtIndexPath:) withObject:indexPath afterDelay:0.1f];
-    NSLog(@"Click!!!");
 }
 
 -(void)deselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,18 +128,17 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
 #pragma mark - Actions
 //
 - (void)avatarButtonPressed:(UIButton *)sender
 {
     self.clickedContact = [NSNumber numberWithInteger:sender.tag];
-    [self performSegueWithIdentifier:@"goToContactFromAll" sender:self];  
-    
+    [self performSegueWithIdentifier:@"goToContactFromAll" sender:self];
 }
 
 
 #pragma mark - Navigation
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

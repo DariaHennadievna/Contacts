@@ -140,13 +140,11 @@
 			children = (
 				847A7AFC1B2458D800A22046 /* HelpersWithDB */,
 				847A7AE91B24482300A22046 /* DBModel */,
-				84EEE2A61B23846A005CF9D9 /* DataManager */,
 				84EEE2A21B2379A5005CF9D9 /* RequestManager */,
 				84446D691B23019800C81679 /* Views */,
 				84446D681B23018200C81679 /* VCs */,
 				84446D431B2300AC00C81679 /* AppDelegate.h */,
 				84446D441B2300AC00C81679 /* AppDelegate.m */,
-				84446D4C1B2300AC00C81679 /* Main.storyboard */,
 				84446D3F1B2300AC00C81679 /* Supporting Files */,
 			);
 			path = Contacts;
@@ -198,6 +196,7 @@
 		84446D691B23019800C81679 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84446D4C1B2300AC00C81679 /* Main.storyboard */,
 				84446D6A1B23066800C81679 /* All Contacts View */,
 				84446D711B2308B500C81679 /* All Messages View */,
 				84446D741B23094D00C81679 /* Contact View */,
@@ -266,13 +265,6 @@
 				84EEE2A41B237A04005CF9D9 /* RequestManager.m */,
 			);
 			name = RequestManager;
-			sourceTree = "<group>";
-		};
-		84EEE2A61B23846A005CF9D9 /* DataManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = DataManager;
 			sourceTree = "<group>";
 		};
 		D4C838EDE01E47C7578A546C /* Pods */ = {

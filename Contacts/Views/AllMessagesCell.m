@@ -28,8 +28,7 @@ float const indentLeftAndRight = 10.0f;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
-    {
-        //self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.3f];
+    {        
         [self configureCell];
     }
     
@@ -55,7 +54,6 @@ float const indentLeftAndRight = 10.0f;
     self.allLabel.font = [UIFont systemFontOfSize:25];
     self.allLabel.text = @"ALL";
     self.allLabel.textAlignment = NSTextAlignmentCenter;
-    //self.allLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     [self addSubview:self.allLabel];
     
     // for Count Of Messages Label
@@ -71,7 +69,6 @@ float const indentLeftAndRight = 10.0f;
     
     self.countOfMessagesLabel = [[UILabel alloc] initWithFrame:myFrame];
     self.countOfMessagesLabel.textAlignment = NSTextAlignmentRight;
-    //self.countOfMessagesLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     [self addSubview:self.countOfMessagesLabel];
 }
 

@@ -28,8 +28,7 @@ float const indentLeftAndRightForMessagesFromContactCell = 10.0f;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
-    {
-        //self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.3f];
+    {        
         [self configureCell];
     }
     
@@ -70,13 +69,12 @@ float const indentLeftAndRightForMessagesFromContactCell = 10.0f;
     self.timeAgoLabel = [[UILabel alloc] initWithFrame:myFrame];
     self.timeAgoLabel.textAlignment = NSTextAlignmentRight;
     self.timeAgoLabel.textColor = [UIColor grayColor];
-    //self.timeAgoLabel.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5f];
     [self addSubview:self.timeAgoLabel];
     
     // for Message Label
     CGSize sizeMessageLabel;
     
-    sizeMessageLabel.width = 200.0f;
+    sizeMessageLabel.width = 220.0f;
     sizeMessageLabel.height = 15.0f;
     
     myOrigine.x = self.bounds.size.width - sizeMessageLabel.width - indentLeftAndRightForMessagesFromContactCell;
@@ -85,8 +83,10 @@ float const indentLeftAndRightForMessagesFromContactCell = 10.0f;
     
     self.messageLabel = [[UILabel alloc] initWithFrame:myFrame];
     self.messageLabel.textAlignment = NSTextAlignmentJustified;
+    self.messageLabel.font = [UIFont systemFontOfSize:15];
     //self.messageLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     
+    self.messageLabel.adjustsFontSizeToFitWidth  = YES;
     self.messageLabel.numberOfLines = 0;
     
     [self addSubview:self.messageLabel];

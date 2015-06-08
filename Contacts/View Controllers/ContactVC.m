@@ -9,7 +9,7 @@
 float const avatarViewHeight = 70.0f;
 float const avatarViewWidth  = 70.0f;
 float const avatarViewTop    = 70.0f;
-float const tableViewTop     = avatarViewTop + avatarViewHeight + 5.0f;
+float const tableViewTop     = avatarViewTop + avatarViewHeight + 10.0f;
 float const indentTopAndBottomForCellForContactVC = 5.0f;
 
 #import "ContactVC.h"
@@ -28,13 +28,15 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"Start View 2");
     NSLog(@"self.userID = %@", self.userID);
     self.messages = [[DataManager sharedInstance] messagesFromUser:self.userID];
-    NSLog(@"self.messages = %@", self.messages);
+    NSLog(@"self.messages = %lu", (unsigned long)self.messages.count);
     [self.view addSubview:self.avatarView];
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[MessageCell class]
            forCellReuseIdentifier:NSStringFromClass([MessageCell class])];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Views
@@ -51,7 +53,6 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
         myOrigin.y = avatarViewTop;
         CGRect myFrame = CGRectMake(myOrigin.x, myOrigin.y, sizeAvatarView.width, sizeAvatarView.height);
         _avatarView = [[UIImageView alloc] initWithFrame:myFrame];
-        //_avatarView.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5f];
         NSData * imageData =  [[DataManager sharedInstance] avatarForUserContact:self.userID];
         _avatarView.image = [UIImage imageWithData:imageData];
     }
@@ -76,7 +77,7 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.messages count];
+    return self.messages.count;
 }
 
 
@@ -93,16 +94,21 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
     // use the "NSDate+TimeAgo.h" pod
     NSString *ago = [date timeAgo];
     messageCell.timeAgoLabel.text = ago;
-    NSLog(@"Вывести прошедшее время: \"%@\"", ago);
+    //NSLog(@"Вывести прошедшее время: \"%@\"", ago);
     
     [messageCell.messageLabel sizeToFit];
     
     CGFloat heightForTimeAgo = CGRectGetHeight(messageCell.timeAgoLabel.bounds);
-    CGFloat heightForMessage = CGRectGetHeight(messageCell.messageLabel.bounds);
-    
-    self.heightForRow = heightForMessage + heightForTimeAgo + (indentTopAndBottomForCellForContactVC * 2);
-    
-    NSLog(@"cellForRowAtIndexPath = %f", self.heightForRow);
+    CGFloat heightForMessage = CGRectGetHeight(messageCell.messageLabel.bounds);    
+   
+    if (heightForTimeAgo > heightForMessage)
+    {
+        self.heightForRow = heightForTimeAgo + (indentTopAndBottomForCellForContactVC * 2);
+    }
+    else
+    {
+        self.heightForRow = heightForMessage + (indentTopAndBottomForCellForContactVC * 2);
+    }
   
     return messageCell;
 }
@@ -117,8 +123,14 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"heightForRowAtIndexPath = %f", self.heightForRow);
-    return self.heightForRow;
+    if (!self.heightForRow)
+    {
+        return 100.0f;
+    }
+    else
+    {
+        return self.heightForRow;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -131,10 +143,5 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
-
-
-
-
 
 @end

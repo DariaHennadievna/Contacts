@@ -70,14 +70,11 @@ float const myIndentLeftAndRight = 10.0f;
     
     self.numberOfMessagesLabel = [[UILabel alloc] initWithFrame:myFrame];
     self.numberOfMessagesLabel.textAlignment = NSTextAlignmentRight;
-    //self.numberOfMessagesLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     [self addSubview:self.numberOfMessagesLabel];
     
-    
     self.userName  = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 140, 40)];
-    self.userName.text = @"blabla";
-    [self addSubview:self.userName];
-    
+    self.userName.text = @"blabla...";
+    [self addSubview:self.userName];    
 }
 
 @end

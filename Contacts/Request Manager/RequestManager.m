@@ -39,9 +39,7 @@
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Response: %@", responseObject);
-        callback(nil, responseObject);
-        //self.imageView = [UIImage imageWithData:responseObject];
-        //self.myView.backgroundColor =[UIColor colorWithPatternImage:self.imageView];
+        callback(nil, responseObject);       
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);

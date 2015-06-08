@@ -35,10 +35,8 @@ float const indentTopAndBottomForCell = 5.0f;
     [self.tableView registerClass:[ContactCell class]
            forCellReuseIdentifier:NSStringFromClass([ContactCell class])];
     
-    
     self.sortedArrayOfContacts = [[DataManager sharedInstance] sortedArrayOfContacts];
     [self startGetContacts];
-    
 }
 
 #pragma mark - Views
@@ -148,7 +146,6 @@ float const indentTopAndBottomForCell = 5.0f;
     {
         return self.heightForRowInSecondSection;
     }
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -163,8 +160,7 @@ float const indentTopAndBottomForCell = 5.0f;
         ContactCell *cell = (ContactCell*)[tableView cellForRowAtIndexPath:indexPath];
         // этот параметр userID будем передавать следующему контроллеру
         self.clickedContact = [NSNumber numberWithInteger:cell.tag];
-        [self performSegueWithIdentifier:@"ShowContact" sender:self];
-        
+        [self performSegueWithIdentifier:@"ShowContact" sender:self];        
     }
 }
 
@@ -183,8 +179,7 @@ float const indentTopAndBottomForCell = 5.0f;
          if (error)
          {
              return;
-         }
-         //NSLog(@"DATA %@", result);
+         }         
          [[DataManager sharedInstance] setAllContacts:result];
          self.sortedArrayOfContacts = [[DataManager sharedInstance] sortedArrayOfContacts];
          [self.tableView reloadData];
