@@ -7,7 +7,7 @@
 - (void) populateFromDictionary:(NSDictionary*)dict;
 + (NSManagedObject*) createManagedObjectFromDictionary:(NSDictionary*)dict
                                              inContext:(NSManagedObjectContext*)context;
-- (NSDictionary*) toDictionaryWithNoRelationship;
+- (NSDictionary*) toDictionaryWithNoRelationship; 
 
 @end
 

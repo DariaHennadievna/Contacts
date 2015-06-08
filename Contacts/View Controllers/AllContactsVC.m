@@ -105,6 +105,7 @@ float const indentTopAndBottomForCell = 5.0f;
         
         __weak ContactCell *weakCell = messagesFromContactCell;
         
+        // ~~~ Запросик картиночек для аваторки ~~~//
         // пока не получили ни одной картинки делаем заставочки для аватарок
         [messagesFromContactCell.avatarView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] placeholderImage:[UIImage imageNamed:@"profile-image-placeholder.png"]
         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
@@ -119,7 +120,7 @@ float const indentTopAndBottomForCell = 5.0f;
          }
         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error)
          {
-             // если какая то ошибка или нет интернета то выгружаем картинку из базы
+             // если какая то обшибка или нет интернет-соединения то выгружаем картинку из базы
              NSLog(@"%@",[error localizedDescription]);
              NSData *imageData = [[DataManager sharedInstance] avatarForUserContact:[NSNumber numberWithInteger:weakCell.tag]];
              weakCell.avatarView.image  = [UIImage imageWithData:imageData];
@@ -136,7 +137,6 @@ float const indentTopAndBottomForCell = 5.0f;
 {
     return 0.0f;
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -161,7 +161,7 @@ float const indentTopAndBottomForCell = 5.0f;
     else
     {
         ContactCell *cell = (ContactCell*)[tableView cellForRowAtIndexPath:indexPath];
-        // этот параметр userID передадим следующему контроллеру
+        // этот параметр userID будем передавать следующему контроллеру
         self.clickedContact = [NSNumber numberWithInteger:cell.tag];
         [self performSegueWithIdentifier:@"ShowContact" sender:self];
         
@@ -185,7 +185,6 @@ float const indentTopAndBottomForCell = 5.0f;
              return;
          }
          //NSLog(@"DATA %@", result);
-         
          [[DataManager sharedInstance] setAllContacts:result];
          self.sortedArrayOfContacts = [[DataManager sharedInstance] sortedArrayOfContacts];
          [self.tableView reloadData];
@@ -213,7 +212,13 @@ float const indentTopAndBottomForCell = 5.0f;
         {
             ContactVC *contactsVC =
             (ContactVC *)segue.destinationViewController;
-            contactsVC.title = @"Contact";
+            // хочу чтобы при открытии экрана ContactVC title соответствовал имени контакта
+            // контакт нахожу по имеющемуся уже ID...
+            NSDictionary *dictForclickedContact = [[DataManager sharedInstance] contactDictionaryWithUserId:self.clickedContact];
+            // беру имя контакта...
+            NSString *nameClickedContact = [dictForclickedContact objectForKey:USER_NAME];
+            // готово =)
+            contactsVC.title = nameClickedContact;
             contactsVC.userID  = self.clickedContact;
         }
     }

@@ -13,7 +13,8 @@
 #pragma mark -
 #pragma mark Dictionary conversion methods
 
-- (NSDictionary*) toDictionaryWithTraversalHistory:(NSMutableSet*)traversalHistory {
+- (NSDictionary*) toDictionaryWithTraversalHistory:(NSMutableSet*)traversalHistory
+{
     NSArray* attributes = [[[self entity] attributesByName] allKeys];
     NSArray* relationships = [[[self entity] relationshipsByName] allKeys];
     NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:
@@ -21,9 +22,11 @@
 
     NSMutableSet *localTraversalHistory = nil;
 
-    if (traversalHistory == nil) {
+    if (traversalHistory == nil)
+    {
         localTraversalHistory = [NSMutableSet setWithCapacity:[attributes count] + [relationships count] + 1];
-    } else {
+    } else
+    {
         localTraversalHistory = traversalHistory;
     }
 
@@ -31,24 +34,29 @@
 
     [dict setObject:[[self class] description] forKey:@"class"];
 
-    for (NSString* attr in attributes) {
+    for (NSString* attr in attributes)
+    {
         NSObject* value = [self valueForKey:attr];
 
         if (value != nil) {
-            if ([value isKindOfClass:[NSDate class]]) {
+            if ([value isKindOfClass:[NSDate class]])
+            {
                 NSTimeInterval date = [(NSDate*)value timeIntervalSinceReferenceDate];
                 NSString *dateAttr = [NSString stringWithFormat:@"%@%@", DATE_ATTR_PREFIX, attr];
                 [dict setObject:[NSNumber numberWithDouble:date] forKey:dateAttr];
-            } else {
+            } else
+            {
                 [dict setObject:value forKey:attr];
             }
         }
     }
 
-    for (NSString* relationship in relationships) {
+    for (NSString* relationship in relationships)
+    {
         NSObject* value = [self valueForKey:relationship];
 
-        if ([value isKindOfClass:[NSSet class]]) {
+        if ([value isKindOfClass:[NSSet class]])
+        {
             // To-many relationship
 
             // The core data set holds a collection of managed objects
@@ -57,7 +65,8 @@
             // Our set holds a collection of dictionaries
             NSMutableArray* dictSet = [NSMutableArray arrayWithCapacity:[relatedObjects count]];
 
-            for (NSManagedObject* relatedObject in relatedObjects) {
+            for (NSManagedObject* relatedObject in relatedObjects)
+            {
                 if ([localTraversalHistory containsObject:relatedObject] == NO) {
                     [dictSet addObject:[relatedObject toDictionaryWithTraversalHistory:localTraversalHistory]];
                 }
@@ -65,7 +74,8 @@
 
             [dict setObject:[NSArray arrayWithArray:dictSet] forKey:relationship];
         }
-        else if ([value isKindOfClass:[NSOrderedSet class]]) {
+        else if ([value isKindOfClass:[NSOrderedSet class]])
+        {
             // To-many relationship
 
             // The core data set holds an ordered collection of managed objects
@@ -74,27 +84,32 @@
             // Our ordered set holds a collection of dictionaries
             NSMutableArray* dictSet = [NSMutableArray arrayWithCapacity:[relatedObjects count]];
 
-            for (NSManagedObject* relatedObject in relatedObjects) {
-                if ([localTraversalHistory containsObject:relatedObject] == NO) {
+            for (NSManagedObject* relatedObject in relatedObjects)
+            {
+                if ([localTraversalHistory containsObject:relatedObject] == NO)
+                {
                     [dictSet addObject:[relatedObject toDictionaryWithTraversalHistory:localTraversalHistory]];
                 }
             }
 
             [dict setObject:[NSOrderedSet orderedSetWithArray:dictSet] forKey:relationship];
         }
-        else if ([value isKindOfClass:[NSManagedObject class]]) {
+        else if ([value isKindOfClass:[NSManagedObject class]])
+        {
             // To-one relationship
 
             NSManagedObject* relatedObject = (NSManagedObject*) value;
 
-            if ([localTraversalHistory containsObject:relatedObject] == NO) {
+            if ([localTraversalHistory containsObject:relatedObject] == NO)
+            {
                 // Call toDictionary on the referenced object and put the result back into our dictionary.
                 [dict setObject:[relatedObject toDictionaryWithTraversalHistory:localTraversalHistory] forKey:relationship];
             }
         }
     }
 
-    if (traversalHistory == nil) {
+    if (traversalHistory == nil)
+    {
         [localTraversalHistory removeAllObjects];
     }
 
@@ -139,7 +154,8 @@
 }
 
 
-- (NSDictionary*) toDictionary {
+- (NSDictionary*) toDictionary
+{
     // Check to see there are any objects that should be skipped in the traversal.
     // This method can be optionally implemented by NSManagedObject subclasses.
     NSMutableSet *traversedObjects = nil;
@@ -150,13 +166,16 @@
     return [self toDictionaryWithTraversalHistory:traversedObjects];
 }
 
-+ (id) decodedValueFrom:(id)codedValue forKey:(NSString*)key {
-    if ([key hasPrefix:DATE_ATTR_PREFIX] == YES) {
++ (id) decodedValueFrom:(id)codedValue forKey:(NSString*)key
+{
+    if ([key hasPrefix:DATE_ATTR_PREFIX] == YES)
+    {
         // This is a date attribute
         NSTimeInterval dateAttr = [(NSNumber*)codedValue doubleValue];
 
         return [NSDate dateWithTimeIntervalSinceReferenceDate:dateAttr];
-    } else {
+    } else
+    {
         // This is an attribute
         return codedValue;
     }
@@ -167,13 +186,15 @@
     NSManagedObjectContext* context = [self managedObjectContext];
 
     for (NSString* key in dict) {
-        if ([key isEqualToString:@"class"]) {
+        if ([key isEqualToString:@"class"])
+        {
             continue;
         }
 
         NSObject* value = [dict objectForKey:key];
 
-        if ([value isKindOfClass:[NSDictionary class]]) {
+        if ([value isKindOfClass:[NSDictionary class]])
+        {
             // This is a to-one relationship
             NSManagedObject* relatedObject =
             [NSManagedObject createManagedObjectFromDictionary:(NSDictionary*)value
@@ -181,7 +202,8 @@
 
             [self setValue:relatedObject forKey:key];
         }
-        else if ([value isKindOfClass:[NSArray class]]) {
+        else if ([value isKindOfClass:[NSArray class]])
+        {
             // This is a to-many relationship
             NSArray* relatedObjectDictionaries = (NSArray*) value;
 
@@ -189,14 +211,16 @@
             // (Note: this is provided by Core Data)
             NSMutableSet* relatedObjects = [self mutableSetValueForKey:key];
 
-            for (NSDictionary* relatedObjectDict in relatedObjectDictionaries) {
+            for (NSDictionary* relatedObjectDict in relatedObjectDictionaries)
+            {
                 NSManagedObject* relatedObject =
                 [NSManagedObject createManagedObjectFromDictionary:relatedObjectDict
                                                          inContext:context];
                 [relatedObjects addObject:relatedObject];
             }
         }
-        else if ([value isKindOfClass:[NSOrderedSet class]]) {
+        else if ([value isKindOfClass:[NSOrderedSet class]])
+        {
             // This is a to-many relationship
             NSArray* relatedObjectDictionaries = (NSArray*) value;
 
@@ -204,17 +228,22 @@
             // (Note: this is provided by Core Data)
             NSMutableOrderedSet* relatedObjects = [self mutableOrderedSetValueForKey:key];
 
-            for (NSDictionary* relatedObjectDict in relatedObjectDictionaries) {
+            for (NSDictionary* relatedObjectDict in relatedObjectDictionaries)
+            {
                 NSManagedObject* relatedObject =
                 [NSManagedObject createManagedObjectFromDictionary:relatedObjectDict
                                                          inContext:context];
                 [relatedObjects addObject:relatedObject];
             }
         }
-        else if (value != nil) {
+        else if (value != nil)
+        {
             if ([key hasPrefix:DATE_ATTR_PREFIX] == NO)
+            {
                 [self setValue:[NSManagedObject decodedValueFrom:value forKey:key] forKey:key];
-            else {
+            }
+            else
+            {
                 //  the entity Transaction is not key value coding-compliant for the key "dAtEaTtr:timestamp".
                 NSString *originalKey = [key stringByReplacingOccurrencesOfString:DATE_ATTR_PREFIX withString:@""];
                 [self setValue:[NSManagedObject decodedValueFrom:value forKey:key] forKey:originalKey];

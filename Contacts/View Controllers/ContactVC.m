@@ -90,9 +90,6 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
     NSNumber *created = [messageDictionary objectForKey:CREATED];
     NSDate *date =  [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[created intValue]];
     
-    //NSTimeInterval  interval = [date timeIntervalSinceNow];
-    //messageCell.timeAgoLabel.text = [NSString stringWithFormat:@"%f hour",(interval/60)/60 ];
-    
     // use the "NSDate+TimeAgo.h" pod
     NSString *ago = [date timeAgo];
     messageCell.timeAgoLabel.text = ago;
@@ -128,7 +125,6 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 {
     [self performSelector:@selector(deselectRowAtIndexPath:) withObject:indexPath afterDelay:0.1f];
     NSLog(@"Click!!!");
-    //[tableView reloadData];
 }
 
 -(void)deselectRowAtIndexPath:(NSIndexPath *)indexPath
