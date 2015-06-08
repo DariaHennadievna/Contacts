@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MessageCell.h"
+#import "DataManager.h"
 
 @interface ContactVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

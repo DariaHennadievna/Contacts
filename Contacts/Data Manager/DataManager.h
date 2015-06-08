@@ -11,8 +11,8 @@
 #import "NSManagedObject+Serialization.h"
 
 // my keys
-#define AVATAR_URL @"avatar_url"
-#define USER_ID    @"user_id"
+#define AVATAR_URL @"avatarURL"
+#define USER_ID    @"userID"
 #define USER_NAME  @"username"
 #define NUMBER_OF_MESSAGES  @"numberOfMessages"
 #define MESSAGES   @"messages"

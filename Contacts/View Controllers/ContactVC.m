@@ -17,7 +17,8 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 @interface ContactVC ()
 
 @property (nonatomic) UITableView *tableView;
-@property (nonatomic) UIView *avatarView;
+@property (nonatomic) UIImageView *avatarView;
+@property (nonatomic, strong) NSArray * messages;
 @property CGFloat heightForRow;
 
 @end
@@ -27,6 +28,9 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"self.userID = %@", self.userID);
+    self.messages = [[DataManager sharedInstance] messagesFromUser:self.userID];
+    NSLog(@"self.messages = %@", self.messages);
     [self.view addSubview:self.avatarView];
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[MessageCell class]
@@ -46,8 +50,10 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
         myOrigin.x = self.view.center.x - sizeAvatarView.width/2;
         myOrigin.y = avatarViewTop;
         CGRect myFrame = CGRectMake(myOrigin.x, myOrigin.y, sizeAvatarView.width, sizeAvatarView.height);
-        _avatarView = [[UIView alloc] initWithFrame:myFrame];
-        _avatarView.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5f];
+        _avatarView = [[UIImageView alloc] initWithFrame:myFrame];
+        //_avatarView.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5f];
+        NSData * imageData =  [[DataManager sharedInstance] avatarForUserContact:self.userID];
+        _avatarView.image = [UIImage imageWithData:imageData];
     }
     
     return _avatarView;
@@ -70,7 +76,7 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return [self.messages count];
 }
 
 
@@ -78,7 +84,7 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 {
     MessageCell *messageCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessageCell class]) forIndexPath:indexPath];
     messageCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    /*
     if (indexPath.row == 0)
     {
         messageCell.messageLabel.text = @"Enter large amount of text here";
@@ -87,7 +93,15 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
     {
         messageCell.messageLabel.text = @"Enter large amount of text here kfjgd ервраве ке екнукеек екнуен etyerty etyerty erry eturyu";
     }
+    */
     
+    NSDictionary * messageDictionary = [self.messages objectAtIndex:indexPath.row];
+    messageCell.messageLabel.text = [messageDictionary objectForKey:TEXT];
+    NSNumber * created = [messageDictionary objectForKey:CREATED];
+    NSDate * date =  [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[created intValue]];
+    
+    NSTimeInterval  interval = [date timeIntervalSinceNow];
+    messageCell.timeAgoLabel.text = [NSString stringWithFormat:@"%f hour",(interval/60)/60 ];
     
     [messageCell.messageLabel sizeToFit];
     
@@ -95,11 +109,10 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
     CGFloat heightForMessage = CGRectGetHeight(messageCell.messageLabel.bounds);
     
     self.heightForRow = heightForMessage + (indentTopAndBottomForCellForContactVC * 2);
-
+    
     NSLog(@"cellForRowAtIndexPath = %f", self.heightForRow);
-    
+  
     return messageCell;
-    
 }
 
 #pragma mark - Table View Delegate

@@ -89,11 +89,11 @@
 
 - (NSArray *)unsortedDictionaryArrayOfContacts
 {
-    NSMutableArray * dictionaryArray = [NSMutableArray array];
-    NSArray * arrayOfContacts = [self arrayOfContacts];
-    for (Contact * userContact in arrayOfContacts)
+    NSMutableArray *dictionaryArray = [NSMutableArray array];
+    NSArray *arrayOfContacts = [self arrayOfContacts];
+    for (Contact *userContact in arrayOfContacts)
     {
-        NSDictionary * dictionary = [userContact toDictionaryWithNoRelationship];
+        NSDictionary *dictionary = [userContact toDictionaryWithNoRelationship];
         [dictionaryArray addObject:dictionary];
     }
     

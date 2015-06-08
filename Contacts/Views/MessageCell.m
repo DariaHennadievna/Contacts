@@ -75,15 +75,15 @@ float const indentLeftAndRightForMessageCell = 10.0f;
     self.messageLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     
     self.messageLabel.numberOfLines = 0;
-    self.messageLabel.text = @"Enter large amount of text here";
-    [self.messageLabel sizeToFit];
+    //self.messageLabel.text = @"Enter large amount of text here";
+    //[self.messageLabel sizeToFit];
     
     [self addSubview:self.messageLabel];
     
     
     
     // for Time Ago Label
-   /* CGSize sizeTimeAgoLabel;
+    CGSize sizeTimeAgoLabel;
     
     sizeTimeAgoLabel.width = 50.0f;
     sizeTimeAgoLabel.height = 15.0f;
@@ -94,7 +94,7 @@ float const indentLeftAndRightForMessageCell = 10.0f;
     
     self.timeAgoLabel = [[UILabel alloc] initWithFrame:myFrame];
     self.timeAgoLabel.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5f];
-    [self addSubview:self.timeAgoLabel];  */  
+    [self addSubview:self.timeAgoLabel];
     
 }
 
