@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AllMessagesCell.h"
-#import "MessagesFromContactCell.h"
+#import "ContactCell.h"
 #import "AllMassagesVC.h"
 #import "ContactVC.h"
 #import "RequestManager.h"
-#import "DataManagerForContacts.h"
 #import "DataManager.h"
 
 @interface AllContactsVC : UIViewController <UITableViewDelegate, UITableViewDataSource>

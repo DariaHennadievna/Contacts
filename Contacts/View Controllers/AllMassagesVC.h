@@ -11,9 +11,10 @@
 #import "AllContactsVC.h"
 #import "ContactVC.h"
 #import "DataManager.h"
+#import "NSDate+TimeAgo.h"
+
 
 @interface AllMassagesVC : UIViewController <UITableViewDataSource,
-                                                UITableViewDelegate,
-                                                    MessageFromContactCellDelegate>
+                                                UITableViewDelegate>
 
 @end

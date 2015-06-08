@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MessageCell.h"
 #import "DataManager.h"
+#import "NSDate+TimeAgo.h"
 
 @interface ContactVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

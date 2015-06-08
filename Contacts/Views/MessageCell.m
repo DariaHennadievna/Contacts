@@ -90,7 +90,7 @@ float const indentLeftAndRightForMessageCell = 10.0f;
     
     myOrigine.x = self.bounds.size.width - sizeTimeAgoLabel.width - indentLeftAndRightForMessageCell;
     myOrigine.y = indentTopAndBottomForMessageCell + self.messageLabel.frame.size.height + 3.0f;
-    myFrame = CGRectMake(myOrigine.x, myOrigine.y, sizeTimeAgoLabel.width, sizeTimeAgoLabel.height);
+    myFrame = CGRectMake(myOrigine.x - 250, myOrigine.y - 40, sizeTimeAgoLabel.width, sizeTimeAgoLabel.height);
     
     self.timeAgoLabel = [[UILabel alloc] initWithFrame:myFrame];
     self.timeAgoLabel.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5f];

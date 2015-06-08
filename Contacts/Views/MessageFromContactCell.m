@@ -53,9 +53,7 @@ float const indentLeftAndRightForMessagesFromContactCell = 10.0f;
     
     self.avatarButton = [[UIButton alloc] initWithFrame:myFrame];
     self.avatar = [[UIImageView alloc] initWithFrame:myFrame];
-    
     //self.avatarView.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
-    
     [self.avatarButton addSubview:self.avatar];
     [self addSubview:self.avatarButton];
     
@@ -70,7 +68,9 @@ float const indentLeftAndRightForMessagesFromContactCell = 10.0f;
     myFrame = CGRectMake(myOrigine.x, myOrigine.y, sizeTimeAgoLabel.width, sizeTimeAgoLabel.height);
     
     self.timeAgoLabel = [[UILabel alloc] initWithFrame:myFrame];
-    self.timeAgoLabel.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5f];
+    self.timeAgoLabel.textAlignment = NSTextAlignmentRight;
+    self.timeAgoLabel.textColor = [UIColor grayColor];
+    //self.timeAgoLabel.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5f];
     [self addSubview:self.timeAgoLabel];
     
     // for Message Label
@@ -84,12 +84,10 @@ float const indentLeftAndRightForMessagesFromContactCell = 10.0f;
     myFrame = CGRectMake(myOrigine.x, myOrigine.y, sizeMessageLabel.width, sizeMessageLabel.height);
     
     self.messageLabel = [[UILabel alloc] initWithFrame:myFrame];
-    self.messageLabel.textAlignment = NSTextAlignmentLeft;
-    self.messageLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
+    self.messageLabel.textAlignment = NSTextAlignmentJustified;
+    //self.messageLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     
     self.messageLabel.numberOfLines = 0;
-    //self.messageLabel.text = @"Enter large amount of text here";
-    //[self.messageLabel sizeToFit];
     
     [self addSubview:self.messageLabel];
     

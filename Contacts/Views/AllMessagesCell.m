@@ -52,8 +52,10 @@ float const indentLeftAndRight = 10.0f;
     myFrame = CGRectMake(myOrigine.x, myOrigine.y, sizeAllLabel.width, sizeAllLabel.height);
     
     self.allLabel = [[UILabel alloc] initWithFrame:myFrame];
-    self.allLabel.textAlignment = NSTextAlignmentLeft;
-    self.allLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
+    self.allLabel.font = [UIFont systemFontOfSize:25];
+    self.allLabel.text = @"ALL";
+    self.allLabel.textAlignment = NSTextAlignmentCenter;
+    //self.allLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     [self addSubview:self.allLabel];
     
     // for Count Of Messages Label
@@ -69,7 +71,7 @@ float const indentLeftAndRight = 10.0f;
     
     self.countOfMessagesLabel = [[UILabel alloc] initWithFrame:myFrame];
     self.countOfMessagesLabel.textAlignment = NSTextAlignmentRight;
-    self.countOfMessagesLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
+    //self.countOfMessagesLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     [self addSubview:self.countOfMessagesLabel];
 }
 

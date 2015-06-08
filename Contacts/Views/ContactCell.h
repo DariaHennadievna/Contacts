@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MessagesFromContactCell : UITableViewCell
+@interface ContactCell : UITableViewCell
 
 @property (nonatomic) UIImageView  *avatarView;
 @property (nonatomic) UILabel *numberOfMessagesLabel;

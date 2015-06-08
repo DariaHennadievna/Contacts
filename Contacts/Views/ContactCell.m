@@ -9,9 +9,9 @@
 float const myIndentTopAndBottom = 5.0f;
 float const myIndentLeftAndRight = 10.0f;
 
-#import "MessagesFromContactCell.h"
+#import "ContactCell.h"
 
-@implementation MessagesFromContactCell
+@implementation ContactCell
 
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -70,7 +70,7 @@ float const myIndentLeftAndRight = 10.0f;
     
     self.numberOfMessagesLabel = [[UILabel alloc] initWithFrame:myFrame];
     self.numberOfMessagesLabel.textAlignment = NSTextAlignmentRight;
-    self.numberOfMessagesLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
+    //self.numberOfMessagesLabel.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5f];
     [self addSubview:self.numberOfMessagesLabel];
     
     

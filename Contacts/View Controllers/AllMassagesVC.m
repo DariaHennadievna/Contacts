@@ -57,18 +57,8 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MessageFromContactCell *messageFromContactCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessageFromContactCell class]) forIndexPath:indexPath];
-    messageFromContactCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    messageFromContactCell.delegate = self;
-    /*
-    if (indexPath.row == 0)
-    {
-        messageFromContactCell.messageLabel.text = @"Enter large amount of text here";
-    }
-    if (indexPath.row == 1)
-    {
-        messageFromContactCell.messageLabel.text = @"Enter large amount of text here kfjgd ервраве ке екнукеек екнуен etyerty etyerty erry eturyu";
-    }
-    */
+    messageFromContactCell.selectionStyle = UITableViewCellSelectionStyleNone;    
+   
     NSDictionary * messageDictionary = [self.allMessages objectAtIndex:indexPath.row];
     
     messageFromContactCell.messageLabel.text = [messageDictionary objectForKey:TEXT] ;
@@ -78,8 +68,13 @@ float const indentTopAndBottomForCellForAllMessagesVC = 5.0f;
     NSData *imageData = [[DataManager sharedInstance] avatarForUserContact:userID];
     messageFromContactCell.avatar.image  = [UIImage imageWithData:imageData];
     
-    [messageFromContactCell.messageLabel sizeToFit];
-
+    NSNumber * created = [messageDictionary objectForKey:CREATED];
+    NSDate * date =  [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[created intValue]];
+    
+    // use the "NSDate+TimeAgo.h" pod
+    NSString *ago = [date timeAgo];
+    messageFromContactCell.timeAgoLabel.text = ago;
+    NSLog(@"Вывести прошедшее время: \"%@\"", ago);
     
     [messageFromContactCell.messageLabel sizeToFit];
     

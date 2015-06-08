@@ -131,27 +131,11 @@
         
         if (value != nil)
         {
-            /// if ([value isKindOfClass:[NSDate class]])
-            {
-                //     NSTimeInterval date = [(NSDate*)value timeIntervalSinceReferenceDate];
-                //     NSString *dateAttr = [NSString stringWithFormat:@"%@%@", DATE_ATTR_PREFIX, attr];
-                //    [dict setObject:[NSNumber numberWithDouble:date] forKey:dateAttr];
-            }
-            // else
-            {
-                [dict setObject:value forKey:attr];
-            }
+            [dict setObject:value forKey:attr];
         }
     }
     
-    
-    if (traversalHistory == nil) {
-        //   [localTraversalHistory removeAllObjects];
-    }
-    
     return dict;    
-    
-    
 }
 
 

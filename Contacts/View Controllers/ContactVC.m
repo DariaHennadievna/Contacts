@@ -84,31 +84,26 @@ float const indentTopAndBottomForCellForContactVC = 5.0f;
 {
     MessageCell *messageCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessageCell class]) forIndexPath:indexPath];
     messageCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    /*
-    if (indexPath.row == 0)
-    {
-        messageCell.messageLabel.text = @"Enter large amount of text here";
-    }
-    if (indexPath.row == 1)
-    {
-        messageCell.messageLabel.text = @"Enter large amount of text here kfjgd ервраве ке екнукеек екнуен etyerty etyerty erry eturyu";
-    }
-    */
     
-    NSDictionary * messageDictionary = [self.messages objectAtIndex:indexPath.row];
+    NSDictionary *messageDictionary = [self.messages objectAtIndex:indexPath.row];
     messageCell.messageLabel.text = [messageDictionary objectForKey:TEXT];
-    NSNumber * created = [messageDictionary objectForKey:CREATED];
-    NSDate * date =  [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[created intValue]];
+    NSNumber *created = [messageDictionary objectForKey:CREATED];
+    NSDate *date =  [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[created intValue]];
     
-    NSTimeInterval  interval = [date timeIntervalSinceNow];
-    messageCell.timeAgoLabel.text = [NSString stringWithFormat:@"%f hour",(interval/60)/60 ];
+    //NSTimeInterval  interval = [date timeIntervalSinceNow];
+    //messageCell.timeAgoLabel.text = [NSString stringWithFormat:@"%f hour",(interval/60)/60 ];
+    
+    // use the "NSDate+TimeAgo.h" pod
+    NSString *ago = [date timeAgo];
+    messageCell.timeAgoLabel.text = ago;
+    NSLog(@"Вывести прошедшее время: \"%@\"", ago);
     
     [messageCell.messageLabel sizeToFit];
     
-    //CGFloat heightForTimeAgo = CGRectGetHeight(messageCell.timeAgoLabel.bounds);
+    CGFloat heightForTimeAgo = CGRectGetHeight(messageCell.timeAgoLabel.bounds);
     CGFloat heightForMessage = CGRectGetHeight(messageCell.messageLabel.bounds);
     
-    self.heightForRow = heightForMessage + (indentTopAndBottomForCellForContactVC * 2);
+    self.heightForRow = heightForMessage + heightForTimeAgo + (indentTopAndBottomForCellForContactVC * 2);
     
     NSLog(@"cellForRowAtIndexPath = %f", self.heightForRow);
   

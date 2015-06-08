@@ -17,7 +17,6 @@ float const indentTopAndBottomForCell = 5.0f;
 @property CGFloat heightForRowInFirstSection;
 @property CGFloat heightForRowInSecondSection;
 
-@property (nonatomic) DataManagerForContacts *dataManagerForContacts;
 @property (nonatomic, strong) NSArray *sortedArrayOfContacts;
 @property (nonatomic, strong) NSNumber *clickedContact;
 
@@ -33,8 +32,8 @@ float const indentTopAndBottomForCell = 5.0f;
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[AllMessagesCell class]
            forCellReuseIdentifier:NSStringFromClass([AllMessagesCell class])];
-    [self.tableView registerClass:[MessagesFromContactCell class]
-           forCellReuseIdentifier:NSStringFromClass([MessagesFromContactCell class])];
+    [self.tableView registerClass:[ContactCell class]
+           forCellReuseIdentifier:NSStringFromClass([ContactCell class])];
     
     
     self.sortedArrayOfContacts = [[DataManager sharedInstance] sortedArrayOfContacts];
@@ -83,24 +82,28 @@ float const indentTopAndBottomForCell = 5.0f;
         AllMessagesCell *allMessagesCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AllMessagesCell class]) forIndexPath:indexPath];
         self.heightForRowInFirstSection= CGRectGetHeight(allMessagesCell.allLabel.bounds) +
                                                         (indentTopAndBottomForCell * 2);
+        
+        NSArray *allMessages = [[DataManager sharedInstance] allMessages];
+        allMessagesCell.countOfMessagesLabel.text = [NSString stringWithFormat:@"%lu >", allMessages.count];
+        
         return allMessagesCell;
     }
     else
     {
-        MessagesFromContactCell *messagesFromContactCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessagesFromContactCell class]) forIndexPath:indexPath];
+        ContactCell *messagesFromContactCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContactCell class]) forIndexPath:indexPath];
         self.heightForRowInSecondSection = CGRectGetHeight(messagesFromContactCell.avatarView.bounds) +
                                                         (indentTopAndBottomForCell * 2);
         
         NSDictionary *dict =  self.sortedArrayOfContacts[indexPath.row];
         messagesFromContactCell.userName.text = [dict objectForKey:USER_NAME];
-        messagesFromContactCell.numberOfMessagesLabel.text = [NSString stringWithFormat:@"%@", [dict objectForKey:NUMBER_OF_MESSAGES] ];
+        messagesFromContactCell.numberOfMessagesLabel.text = [NSString stringWithFormat:@"%@ >", [dict objectForKey:NUMBER_OF_MESSAGES] ];
         
         // используем TAG для того чтобы знать какую ячейку нажали с каким пользователем
         // в TAG записываем ID пользователя
         messagesFromContactCell.tag =  [(NSNumber *)[dict objectForKey:USER_ID] unsignedIntegerValue];
         NSString * urlString  = [dict objectForKey:AVATAR_URL];
         
-        __weak MessagesFromContactCell *weakCell = messagesFromContactCell;
+        __weak ContactCell *weakCell = messagesFromContactCell;
         
         // пока не получили ни одной картинки делаем заставочки для аватарок
         [messagesFromContactCell.avatarView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] placeholderImage:[UIImage imageNamed:@"profile-image-placeholder.png"]
@@ -118,7 +121,7 @@ float const indentTopAndBottomForCell = 5.0f;
          {
              // если какая то ошибка или нет интернета то выгружаем картинку из базы
              NSLog(@"%@",[error localizedDescription]);
-             NSData * imageData = [[DataManager sharedInstance] avatarForUserContact:[NSNumber numberWithInteger:weakCell.tag]];
+             NSData *imageData = [[DataManager sharedInstance] avatarForUserContact:[NSNumber numberWithInteger:weakCell.tag]];
              weakCell.avatarView.image  = [UIImage imageWithData:imageData];
              [weakCell setNeedsLayout];
          }];
@@ -157,7 +160,7 @@ float const indentTopAndBottomForCell = 5.0f;
     }
     else
     {
-        MessagesFromContactCell *cell = (MessagesFromContactCell*)[tableView cellForRowAtIndexPath:indexPath];
+        ContactCell *cell = (ContactCell*)[tableView cellForRowAtIndexPath:indexPath];
         // этот параметр userID передадим следующему контроллеру
         self.clickedContact = [NSNumber numberWithInteger:cell.tag];
         [self performSegueWithIdentifier:@"ShowContact" sender:self];
